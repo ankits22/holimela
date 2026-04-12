@@ -1,0 +1,1126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Louisville Holi Mela 2026 – Festival of Colors</title>
+  <meta name="description" content="Louisville Holi Mela 2026 – April 26, 2026, 12–6 PM. Celebrate the Festival of Colors with food, music, dance, and color play!" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&family=Dancing+Script:wght@700&display=swap" rel="stylesheet" />
+  <style>
+    /* ─── RESET & BASE ─────────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --pink:    #e91e8c;
+      --orange:  #ff6b35;
+      --yellow:  #ffd23f;
+      --purple:  #7b2d8b;
+      --teal:    #00b4d8;
+      --green:   #06d6a0;
+      --dark:    #1a0a2e;
+      --light:   #fff9f0;
+      --grad1: linear-gradient(135deg, #e91e8c, #ff6b35, #ffd23f);
+      --grad2: linear-gradient(135deg, #7b2d8b, #e91e8c);
+      --shadow: 0 8px 32px rgba(0,0,0,0.18);
+    }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: var(--light);
+      color: #2d1b4e;
+      overflow-x: hidden;
+    }
+    a { text-decoration: none; color: inherit; }
+    img { max-width: 100%; display: block; }
+
+    /* ─── CONFETTI DOTS (decorative) ────────────────────────────────── */
+    .dots {
+      position: absolute; inset: 0; overflow: hidden; pointer-events: none; z-index: 0;
+    }
+    .dots span {
+      position: absolute; border-radius: 50%;
+      animation: float 6s infinite ease-in-out alternate;
+    }
+    @keyframes float { from { transform: translateY(0) rotate(0); } to { transform: translateY(-30px) rotate(30deg); } }
+
+    /* ─── NAVBAR ─────────────────────────────────────────────────────── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+      background: rgba(26, 10, 46, 0.92);
+      backdrop-filter: blur(12px);
+      padding: 0 5%;
+      display: flex; align-items: center; justify-content: space-between;
+      height: 64px;
+      border-bottom: 2px solid rgba(233,30,140,0.4);
+    }
+    .nav-brand {
+      display: flex; align-items: center; gap: 10px;
+    }
+    .nav-brand .logo-text {
+      font-size: 1.2rem; font-weight: 800;
+      background: var(--grad1); -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      line-height: 1.1;
+    }
+    .nav-brand .logo-sub { font-size: 0.65rem; color: #ccc; font-weight: 400; display: block; }
+    .nav-links {
+      display: flex; align-items: center; gap: 28px; list-style: none;
+    }
+    .nav-links a {
+      color: #f0e6ff; font-size: 0.85rem; font-weight: 500;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--yellow); }
+    .btn-ticket-nav {
+      background: var(--grad1);
+      color: #fff !important; font-weight: 700 !important;
+      padding: 8px 20px; border-radius: 50px;
+      box-shadow: 0 4px 15px rgba(233,30,140,0.4);
+      transition: transform 0.2s, box-shadow 0.2s !important;
+    }
+    .btn-ticket-nav:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(233,30,140,0.6) !important; }
+    .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; }
+    .hamburger span { width: 26px; height: 2px; background: #fff; border-radius: 2px; transition: 0.3s; }
+    #nav-toggle { display: none; }
+
+    /* ─── HERO ───────────────────────────────────────────────────────── */
+    #hero {
+      min-height: 100vh;
+      background: url('images/495556063_1263135979145174_6679334376900509865_n.jpg') center/cover no-repeat;
+      position: relative; display: flex; align-items: center; justify-content: center;
+    }
+    #hero::before {
+      content: ''; position: absolute; inset: 0;
+      background: linear-gradient(to bottom, rgba(26,10,46,0.7) 0%, rgba(123,45,139,0.6) 50%, rgba(26,10,46,0.85) 100%);
+    }
+    .hero-content {
+      position: relative; z-index: 2; text-align: center;
+      padding: 120px 20px 60px;
+      max-width: 900px;
+    }
+    .hero-tagline {
+      font-family: 'Dancing Script', cursive;
+      font-size: clamp(1.4rem, 3vw, 2rem);
+      color: var(--yellow); margin-bottom: 8px;
+      text-shadow: 0 2px 10px rgba(0,0,0,0.5);
+    }
+    .hero-title {
+      font-size: clamp(2.8rem, 7vw, 5.5rem);
+      font-weight: 900; color: #fff; line-height: 1;
+      text-shadow: 0 4px 20px rgba(0,0,0,0.6);
+    }
+    .hero-title span {
+      background: var(--grad1); -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    }
+    .hero-subtitle {
+      font-size: clamp(1rem, 2vw, 1.3rem);
+      color: #f0e6ff; margin: 18px 0 10px;
+      text-shadow: 0 2px 8px rgba(0,0,0,0.5);
+    }
+    .hero-date-badge {
+      display: inline-block;
+      background: rgba(255,210,63,0.2); border: 2px solid var(--yellow);
+      color: var(--yellow); padding: 8px 24px; border-radius: 50px;
+      font-size: 1rem; font-weight: 700; margin-bottom: 20px;
+      backdrop-filter: blur(6px);
+    }
+    .hero-highlights {
+      display: flex; flex-wrap: wrap; justify-content: center; gap: 12px;
+      margin: 24px 0;
+    }
+    .hero-highlights .chip {
+      background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.3);
+      color: #fff; padding: 8px 18px; border-radius: 50px;
+      font-size: 0.85rem; backdrop-filter: blur(6px);
+      display: flex; align-items: center; gap: 8px;
+    }
+    .hero-highlights .chip .icon { font-size: 1.1rem; }
+    .hero-desc {
+      max-width: 680px; margin: 20px auto 0;
+      color: rgba(255,255,255,0.88); font-size: clamp(0.95rem, 1.8vw, 1.1rem);
+      line-height: 1.8; text-shadow: 0 1px 6px rgba(0,0,0,0.4);
+    }
+    .hero-desc strong { color: var(--yellow); }
+    .hero-btns { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; margin-top: 30px; }
+    .btn-primary {
+      background: var(--grad1); color: #fff;
+      padding: 16px 40px; border-radius: 50px; font-size: 1.1rem; font-weight: 700;
+      box-shadow: 0 6px 25px rgba(233,30,140,0.5);
+      transition: transform 0.25s, box-shadow 0.25s;
+      display: inline-block;
+    }
+    .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 10px 35px rgba(233,30,140,0.7); color: #fff; }
+    .btn-secondary {
+      background: rgba(255,255,255,0.12); border: 2px solid #fff; color: #fff;
+      padding: 14px 36px; border-radius: 50px; font-size: 1.1rem; font-weight: 600;
+      backdrop-filter: blur(6px);
+      transition: background 0.25s, transform 0.25s;
+      display: inline-block;
+    }
+    .btn-secondary:hover { background: rgba(255,255,255,0.25); transform: translateY(-3px); color: #fff; }
+    .scroll-arrow {
+      position: absolute; bottom: 30px; left: 50%; transform: translateX(-50%);
+      z-index: 2; animation: bounce 2s infinite;
+      color: rgba(255,255,255,0.7); font-size: 2rem; cursor: pointer;
+    }
+    @keyframes bounce { 0%,100%{transform:translateX(-50%) translateY(0)} 50%{transform:translateX(-50%) translateY(10px)} }
+
+    /* ─── SECTION COMMON ─────────────────────────────────────────────── */
+    section { padding: 80px 5%; }
+    .section-header { text-align: center; margin-bottom: 50px; }
+    .section-header h2 {
+      font-size: clamp(1.8rem, 4vw, 2.8rem); font-weight: 800; color: var(--dark);
+    }
+    .section-header h2 .accent {
+      background: var(--grad1); -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    }
+    .section-header p { color: #666; font-size: 1rem; max-width: 650px; margin: 12px auto 0; }
+    .divider {
+      width: 70px; height: 4px; border-radius: 2px;
+      background: var(--grad1); margin: 16px auto 0;
+    }
+
+    /* ─── VIDEO SECTION ──────────────────────────────────────────────── */
+    #video { background: var(--dark); }
+    #video .section-header h2 { color: #fff; }
+    #video .section-header p { color: #aaa; }
+    .video-wrap {
+      max-width: 860px; margin: 0 auto;
+      border-radius: 20px; overflow: hidden;
+      box-shadow: 0 20px 60px rgba(233,30,140,0.4);
+      border: 3px solid rgba(233,30,140,0.4);
+      position: relative; padding-bottom: 56.25%; height: 0;
+    }
+    .video-wrap iframe {
+      position: absolute; top: 0; left: 0;
+      width: 100%; height: 100%; border: none;
+    }
+
+    /* ─── ABOUT HOLI MELA ────────────────────────────────────────────── */
+    #about {
+      background: linear-gradient(135deg, #fff9f0 0%, #fce4f6 100%);
+    }
+    .about-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 50px; align-items: center;
+      max-width: 1100px; margin: 0 auto;
+    }
+    .about-text p { line-height: 1.9; color: #444; font-size: 1rem; }
+    .about-image { border-radius: 20px; overflow: hidden; box-shadow: var(--shadow); }
+    .about-image img { width: 100%; height: 380px; object-fit: cover; }
+    .stat-row { display: flex; gap: 24px; margin-top: 30px; flex-wrap: wrap; }
+    .stat-box {
+      flex: 1; min-width: 100px;
+      background: #fff; border-radius: 16px; padding: 20px; text-align: center;
+      box-shadow: 0 4px 20px rgba(123,45,139,0.1);
+    }
+    .stat-box .num { font-size: 1.8rem; font-weight: 800; background: var(--grad1); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    .stat-box .lbl { font-size: 0.75rem; color: #888; margin-top: 4px; }
+
+    /* ─── SCHEDULE ───────────────────────────────────────────────────── */
+    #schedule { background: var(--dark); }
+    #schedule .section-header h2 { color: #fff; }
+    #schedule .section-header p { color: #aaa; }
+    .timeline {
+      max-width: 750px; margin: 0 auto;
+      position: relative;
+    }
+    .timeline::before {
+      content: ''; position: absolute; left: 50%; top: 0; bottom: 0;
+      width: 3px; background: linear-gradient(to bottom, var(--pink), var(--orange), var(--yellow));
+      transform: translateX(-50%);
+    }
+    .tl-item {
+      display: flex; align-items: center; gap: 24px; margin-bottom: 36px;
+      position: relative;
+    }
+    .tl-item:nth-child(odd) { flex-direction: row; }
+    .tl-item:nth-child(even) { flex-direction: row-reverse; }
+    .tl-time {
+      flex: 1; text-align: right; color: var(--yellow);
+      font-weight: 700; font-size: 1rem;
+    }
+    .tl-item:nth-child(even) .tl-time { text-align: left; }
+    .tl-dot {
+      width: 16px; height: 16px; border-radius: 50%;
+      background: var(--pink); border: 3px solid #fff;
+      flex-shrink: 0; position: relative; z-index: 1;
+      box-shadow: 0 0 12px rgba(233,30,140,0.7);
+    }
+    .tl-card {
+      flex: 1;
+      background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 14px; padding: 16px 20px;
+      backdrop-filter: blur(6px);
+    }
+    .tl-card h3 { color: #fff; font-size: 0.95rem; font-weight: 600; }
+    .tl-card p { color: #aaa; font-size: 0.8rem; margin-top: 4px; }
+
+    /* ─── FOOD VENDORS ───────────────────────────────────────────────── */
+    #vendors { background: linear-gradient(135deg, #fff9f0, #e8f4ff); }
+    .vendors-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 28px; max-width: 1100px; margin: 0 auto;
+    }
+    .vendor-card {
+      background: #fff; border-radius: 20px;
+      overflow: hidden; box-shadow: var(--shadow);
+      transition: transform 0.3s, box-shadow 0.3s;
+      border-top: 4px solid transparent;
+    }
+    .vendor-card:hover { transform: translateY(-8px); box-shadow: 0 16px 40px rgba(0,0,0,0.15); }
+    .vendor-card:nth-child(1) { border-top-color: var(--teal); }
+    .vendor-card:nth-child(2) { border-top-color: var(--orange); }
+    .vendor-card:nth-child(3) { border-top-color: var(--yellow); }
+    .vendor-card:nth-child(4) { border-top-color: var(--green); }
+    .vendor-card:nth-child(5) { border-top-color: var(--pink); }
+    .vendor-card:nth-child(6) { border-top-color: var(--purple); }
+    .vendor-icon {
+      height: 90px; display: flex; align-items: center; justify-content: center;
+      font-size: 3rem;
+      background: linear-gradient(135deg, #f8f0ff, #fff0f8);
+    }
+    .vendor-body { padding: 20px; }
+    .vendor-body h3 { font-size: 1.1rem; font-weight: 700; color: var(--dark); }
+    .vendor-body p { color: #666; font-size: 0.85rem; margin-top: 8px; line-height: 1.6; }
+    .vendor-tag {
+      display: inline-block; margin-top: 12px;
+      background: linear-gradient(135deg, #f0e6ff, #ffe6f6);
+      color: var(--purple); padding: 4px 12px; border-radius: 50px;
+      font-size: 0.72rem; font-weight: 600;
+    }
+
+    /* ─── CHIEF GUEST ────────────────────────────────────────────────── */
+    #chief-guest { background: var(--grad2); }
+    .chief-inner {
+      max-width: 800px; margin: 0 auto; text-align: center;
+    }
+    .chief-inner h2 { color: #fff; font-size: clamp(1.8rem,3vw,2.5rem); font-weight: 800; margin-bottom: 8px; }
+    .chief-divider { width: 70px; height: 4px; background: var(--yellow); margin: 14px auto 30px; border-radius: 2px; }
+    .chief-card {
+      background: rgba(255,255,255,0.12); border: 2px solid rgba(255,255,255,0.25);
+      border-radius: 24px; padding: 40px 30px;
+      backdrop-filter: blur(10px);
+      display: inline-flex; flex-direction: column; align-items: center; gap: 20px;
+      max-width: 420px;
+    }
+    .chief-avatar {
+      width: 140px; height: 140px; border-radius: 50%;
+      background: linear-gradient(135deg, var(--yellow), var(--orange));
+      display: flex; align-items: center; justify-content: center;
+      font-size: 4rem;
+      border: 4px solid rgba(255,255,255,0.5);
+      box-shadow: 0 8px 30px rgba(0,0,0,0.3);
+      overflow: hidden;
+    }
+    .chief-avatar img { width: 100%; height: 100%; object-fit: cover; }
+    .chief-name { color: #fff; font-size: 1.6rem; font-weight: 800; }
+    .chief-title { color: var(--yellow); font-size: 1rem; font-weight: 600; }
+    .chief-desc { color: rgba(255,255,255,0.8); font-size: 0.9rem; line-height: 1.7; }
+
+    /* ─── GALLERY ────────────────────────────────────────────────────── */
+    #gallery { background: var(--dark); overflow: hidden; }
+    #gallery .section-header h2 { color: #fff; }
+    #gallery .section-header p { color: #aaa; }
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px; max-width: 1100px; margin: 0 auto;
+    }
+    .gallery-item {
+      border-radius: 14px; overflow: hidden;
+      aspect-ratio: 4/3;
+      cursor: pointer; position: relative;
+    }
+    .gallery-item img {
+      width: 100%; height: 100%; object-fit: cover;
+      transition: transform 0.4s;
+    }
+    .gallery-item::after {
+      content: '🔍';
+      position: absolute; inset: 0;
+      background: rgba(123,45,139,0.5);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 2rem; opacity: 0; transition: opacity 0.3s;
+    }
+    .gallery-item:hover img { transform: scale(1.08); }
+    .gallery-item:hover::after { opacity: 1; }
+
+    /* ─── TEAM ───────────────────────────────────────────────────────── */
+    #team { background: linear-gradient(135deg, #fff9f0, #f0e6ff); }
+    .team-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 24px; max-width: 1000px; margin: 0 auto;
+    }
+    .team-card {
+      background: #fff; border-radius: 20px; padding: 28px 20px;
+      text-align: center; box-shadow: 0 6px 24px rgba(123,45,139,0.1);
+      transition: transform 0.3s;
+    }
+    .team-card:hover { transform: translateY(-6px); }
+    .team-avatar {
+      width: 72px; height: 72px; border-radius: 50%;
+      background: var(--grad1);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.8rem; margin: 0 auto 14px;
+      color: #fff; font-weight: 700;
+    }
+    .team-card h3 { font-size: 1rem; font-weight: 700; color: var(--dark); }
+    .team-card p { font-size: 0.78rem; color: var(--pink); font-weight: 600; margin-top: 5px; }
+
+    /* ─── TICKETS ────────────────────────────────────────────────────── */
+    #tickets { background: linear-gradient(135deg, #ffd23f22, #e91e8c11); }
+    .tickets-inner {
+      max-width: 700px; margin: 0 auto; text-align: center;
+    }
+    .ticket-box {
+      background: #fff; border-radius: 24px;
+      box-shadow: 0 12px 40px rgba(233,30,140,0.15);
+      padding: 50px 40px; position: relative; overflow: hidden;
+    }
+    .ticket-box::before {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0; height: 6px;
+      background: var(--grad1);
+    }
+    .ticket-price { font-size: 1rem; color: #888; margin-bottom: 8px; }
+    .ticket-box h3 { font-size: 1.6rem; font-weight: 800; color: var(--dark); margin-bottom: 20px; }
+    .ticket-features { list-style: none; text-align: left; margin: 0 auto 30px; max-width: 320px; }
+    .ticket-features li {
+      padding: 8px 0; color: #555; font-size: 0.9rem;
+      display: flex; gap: 10px; align-items: center;
+      border-bottom: 1px dashed #eee;
+    }
+    .ticket-features li:last-child { border-bottom: none; }
+    .ticket-features li::before { content: '✓'; color: var(--green); font-weight: 700; }
+
+    /* ─── DOS & DON'TS ───────────────────────────────────────────────── */
+    #rules { background: var(--dark); }
+    #rules .section-header h2 { color: #fff; }
+    .rules-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 30px;
+      max-width: 800px; margin: 0 auto;
+    }
+    .rules-card {
+      background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 20px; padding: 30px;
+    }
+    .rules-card h3 { font-size: 1.2rem; font-weight: 700; margin-bottom: 16px; }
+    .rules-card.dos h3 { color: var(--green); }
+    .rules-card.donts h3 { color: #ff4d6d; }
+    .rules-card ul { list-style: none; }
+    .rules-card ul li {
+      padding: 10px 0; color: rgba(255,255,255,0.8); font-size: 0.9rem;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      display: flex; gap: 10px;
+    }
+    .rules-card ul li:last-child { border-bottom: none; }
+    .rules-card.dos ul li::before { content: '✓'; color: var(--green); font-weight: 700; }
+    .rules-card.donts ul li::before { content: '✗'; color: #ff4d6d; font-weight: 700; }
+
+    /* ─── MAP ────────────────────────────────────────────────────────── */
+    #map-section { background: #f8f0ff; }
+    .map-wrap {
+      max-width: 1000px; margin: 0 auto;
+      border-radius: 20px; overflow: hidden; box-shadow: var(--shadow);
+      border: 3px solid rgba(123,45,139,0.2);
+    }
+    .map-wrap iframe { width: 100%; height: 420px; border: none; }
+    .map-address {
+      text-align: center; margin-top: 20px; color: var(--purple);
+      font-size: 1rem; font-weight: 600;
+    }
+
+    /* ─── ABOUT PATHSHALA ────────────────────────────────────────────── */
+    #pathshala { background: linear-gradient(135deg, #e8f4ff, #fff9f0); }
+    .pathshala-inner {
+      max-width: 860px; margin: 0 auto;
+      background: #fff; border-radius: 24px; padding: 50px;
+      box-shadow: var(--shadow);
+      border-left: 6px solid var(--purple);
+    }
+    .pathshala-inner h2 { font-size: 1.5rem; font-weight: 800; color: var(--purple); margin-bottom: 16px; }
+    .pathshala-inner p { color: #555; line-height: 1.9; font-size: 0.95rem; }
+
+    /* ─── VOLUNTEER ──────────────────────────────────────────────────── */
+    #volunteer { background: var(--grad2); text-align: center; }
+    #volunteer h2 { color: #fff; font-size: clamp(1.6rem,3vw,2.3rem); font-weight: 800; margin-bottom: 14px; }
+    #volunteer p { color: rgba(255,255,255,0.8); max-width: 580px; margin: 0 auto 30px; line-height: 1.8; }
+
+    /* ─── PRESS & CONTACT ────────────────────────────────────────────── */
+    #contact { background: var(--dark); }
+    #contact .section-header h2 { color: #fff; }
+    .contact-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 24px; max-width: 1100px; margin: 0 auto;
+    }
+    .contact-card {
+      background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 16px; padding: 24px;
+    }
+    .contact-card h3 { color: var(--yellow); font-size: 0.9rem; font-weight: 700; margin-bottom: 14px; text-transform: uppercase; letter-spacing: 0.08em; }
+    .contact-item { display: flex; gap: 10px; margin-bottom: 12px; align-items: flex-start; }
+    .contact-item .ci-icon { font-size: 1.1rem; flex-shrink: 0; margin-top: 1px; }
+    .contact-item .ci-text { color: rgba(255,255,255,0.8); font-size: 0.85rem; line-height: 1.5; }
+    .contact-item .ci-text strong { color: #fff; display: block; }
+
+    /* ─── FOOTER ─────────────────────────────────────────────────────── */
+    footer {
+      background: #0d0620; color: rgba(255,255,255,0.5);
+      text-align: center; padding: 30px 20px;
+      font-size: 0.8rem;
+    }
+    footer a { color: var(--pink); }
+
+    /* ─── LIGHTBOX ───────────────────────────────────────────────────── */
+    .lightbox {
+      display: none; position: fixed; inset: 0; z-index: 9999;
+      background: rgba(0,0,0,0.92); align-items: center; justify-content: center;
+    }
+    .lightbox.open { display: flex; }
+    .lightbox img { max-width: 90vw; max-height: 90vh; border-radius: 12px; object-fit: contain; }
+    .lb-close {
+      position: absolute; top: 20px; right: 30px;
+      color: #fff; font-size: 2.5rem; cursor: pointer; line-height: 1;
+    }
+    .lb-prev, .lb-next {
+      position: absolute; top: 50%; transform: translateY(-50%);
+      color: #fff; font-size: 2.5rem; cursor: pointer;
+      background: rgba(255,255,255,0.1); border: none;
+      padding: 10px 16px; border-radius: 50%; line-height: 1;
+    }
+    .lb-prev { left: 16px; }
+    .lb-next { right: 16px; }
+
+    /* ─── RESPONSIVE ─────────────────────────────────────────────────── */
+    @media (max-width: 900px) {
+      .about-grid { grid-template-columns: 1fr; }
+      .about-image { display: none; }
+      .gallery-grid { grid-template-columns: repeat(2, 1fr); }
+      .rules-grid { grid-template-columns: 1fr; }
+      .timeline::before { left: 16px; }
+      .tl-item, .tl-item:nth-child(even) { flex-direction: row; gap: 16px; }
+      .tl-time, .tl-item:nth-child(even) .tl-time { text-align: left; flex: 0 0 90px; font-size: 0.8rem; }
+      .tl-dot { margin-left: 0; }
+      .pathshala-inner { padding: 30px 24px; }
+    }
+    @media (max-width: 640px) {
+      .nav-links { display: none; flex-direction: column; position: fixed; top: 64px; left: 0; right: 0; bottom: 0; background: rgba(26,10,46,0.97); padding: 30px 20px; gap: 24px; overflow-y: auto; z-index: 999; }
+      .nav-links.open { display: flex; }
+      .hamburger { display: flex; }
+      .gallery-grid { grid-template-columns: 1fr 1fr; gap: 8px; }
+      section { padding: 60px 5%; }
+      .hero-content { padding-top: 100px; }
+      .ticket-box { padding: 36px 24px; }
+    }
+    @media (max-width: 400px) {
+      .gallery-grid { grid-template-columns: 1fr; }
+      .rules-grid { grid-template-columns: 1fr; }
+    }
+
+    /* ─── PARKING SECTION ───────────────────────────────────────── */
+    #parking { background: linear-gradient(135deg, #f0fff4, #e8f4ff); }
+    .parking-inner {
+      max-width: 680px; margin: 0 auto; text-align: center;
+    }
+    .parking-box {
+      background: #fff; border-radius: 20px; padding: 40px;
+      box-shadow: var(--shadow); border-top: 5px solid var(--green);
+    }
+    .parking-icon { font-size: 4rem; margin-bottom: 16px; }
+    .parking-box h3 { font-size: 1.3rem; font-weight: 700; color: var(--dark); margin-bottom: 10px; }
+    .parking-box p { color: #555; line-height: 1.7; }
+  </style>
+</head>
+<body>
+
+<!-- ══════════ NAVBAR ══════════ -->
+<nav>
+  <div class="nav-brand">
+    <div>
+      <span class="logo-text">🎨 Holi Mela 2026</span>
+      <span class="logo-sub">Louisville Hindi Paathshaala</span>
+    </div>
+  </div>
+  <label class="hamburger" for="nav-toggle" aria-label="Toggle menu">
+    <span></span><span></span><span></span>
+  </label>
+  <input type="checkbox" id="nav-toggle" hidden />
+  <ul class="nav-links" id="navLinks">
+    <li><a href="#about">About</a></li>
+    <li><a href="#schedule">Schedule</a></li>
+    <li><a href="#vendors">Food</a></li>
+    <li><a href="#gallery">Gallery</a></li>
+    <li><a href="#contact">Contact</a></li>
+    <li><a href="https://events.sulekha.com/holi-mela-2026_event-in_louisville-ky_398906" target="_blank" rel="noopener" class="btn-ticket-nav">🎟 Buy Tickets</a></li>
+  </ul>
+</nav>
+
+<!-- ══════════ HERO ══════════ -->
+<section id="hero">
+  <div class="hero-content">
+    <p class="hero-tagline">Louisville Hindi Paathshaala presents</p>
+    <h1 class="hero-title">Holi Mela <span>2026</span></h1>
+    <p class="hero-subtitle">Louisville's Biggest Festival of Colors!</p>
+    <div class="hero-date-badge">📅 April 26, 2026 &nbsp;|&nbsp; 12:00 PM – 6:00 PM ET &nbsp;|&nbsp; 4213 Accomack Dr, Louisville, KY</div>
+    <p class="hero-desc">
+      Join us for a day full of delicious food, fun carnival games, shopping, and vibrant stage performances featuring song &amp; dance.
+      Browse our marketplace, celebrate our community leaders, and come together for the most colorful moment of the year —
+      play Holi colors with your friends and family starting at <strong>3 PM Eastern Time!</strong>
+    </p>
+    <div class="hero-btns">
+      <a href="https://events.sulekha.com/holi-mela-2026_event-in_louisville-ky_398906" target="_blank" rel="noopener" class="btn-primary">🎟 Buy Tickets Now</a>
+      <a href="#about" class="btn-secondary">Learn More</a>
+    </div>
+  </div>
+  <div class="scroll-arrow" onclick="document.getElementById('about').scrollIntoView({behavior:'smooth'})">⌄</div>
+</section>
+
+<!-- ══════════ VIDEO ══════════ -->
+<section id="video">
+  <div class="section-header">
+    <h2>Experience the <span class="accent">Magic</span></h2>
+    <p>Watch what awaits you at Louisville Holi Mela 2026</p>
+    <div class="divider"></div>
+  </div>
+  <div class="video-wrap">
+    <iframe
+      src="https://www.youtube.com/embed/oe4G5SOFmd8?rel=0&modestbranding=1"
+      title="Holi Mela Event Video"
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+      allowfullscreen>
+    </iframe>
+  </div>
+</section>
+
+<!-- ══════════ ABOUT HOLI ══════════ -->
+<section id="about">
+  <div class="section-header">
+    <h2>About <span class="accent">Holi Mela</span></h2>
+    <div class="divider"></div>
+  </div>
+  <div class="about-grid">
+    <div class="about-text">
+      <p>
+        Holi, widely known as the <strong>Festival of Colors</strong>, is one of India's most joyful spring celebrations.
+        The festival represents the spirit of love, happiness, and togetherness.
+      </p>
+      <br />
+      <p>
+        In recent years, Holi has gained remarkable popularity across Europe and North America, inspiring major cultural events
+        and "Color Run" celebrations on university campuses and in cities nationwide. Its inclusive nature transcends boundaries
+        of race, age, and background, bringing communities together in a vibrant expression of unity.
+      </p>
+      <br />
+      <p>
+        This year's Holi Mela will feature a lively blend of <strong>Indian cuisine</strong>, carnival games, cultural workshops,
+        music and dance performances, and a diverse marketplace of clothing and jewelry vendors. Beginning at <strong>3 PM</strong>,
+        the festivities will culminate in the traditional color play!
+      </p>
+      <div class="stat-row">
+        <div class="stat-box"><div class="num">6+</div><div class="lbl">Hours of Fun</div></div>
+        <div class="stat-box"><div class="num">6+</div><div class="lbl">Food Vendors</div></div>
+        <div class="stat-box"><div class="num">∞</div><div class="lbl">Colors &amp; Joy</div></div>
+      </div>
+    </div>
+    <div class="about-image">
+      <img src="images/495094502_1263135965811842_5995826002376013037_n.jpg" alt="Holi Festival Colors" />
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ SCHEDULE ══════════ -->
+<section id="schedule">
+  <div class="section-header">
+    <h2>Event <span class="accent">Schedule</span></h2>
+    <p>Mark your calendar — a full day of festivities awaits</p>
+    <div class="divider"></div>
+  </div>
+  <div class="timeline">
+    <div class="tl-item">
+      <div class="tl-time">12:00 PM</div>
+      <div class="tl-dot"></div>
+      <div class="tl-card">
+        <h3>🎉 Opening Ceremony</h3>
+        <p>Official welcome and inauguration of Holi Mela 2026</p>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-time">12:15 PM</div>
+      <div class="tl-dot"></div>
+      <div class="tl-card">
+        <h3>🏛️ Chief Guest Address</h3>
+        <p>Louisville Mayor Craig Greenberg joins as honored guest</p>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-time">1:00 PM</div>
+      <div class="tl-dot"></div>
+      <div class="tl-card">
+        <h3>🏆 Prize Distribution</h3>
+        <p>Recognizing community leaders and outstanding achievements</p>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-time">1:15 PM</div>
+      <div class="tl-dot"></div>
+      <div class="tl-card">
+        <h3>💃 Stage Performances</h3>
+        <p>Music, dance, and cultural performances for all to enjoy</p>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-time">3:00 PM</div>
+      <div class="tl-dot"></div>
+      <div class="tl-card">
+        <h3>🎨 Color Play Begins!</h3>
+        <p>The main event — traditional Holi color play with friends &amp; family</p>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-time">6:00 PM</div>
+      <div class="tl-dot"></div>
+      <div class="tl-card">
+        <h3>🌅 Closing Ceremony</h3>
+        <p>Thank you and farewell — until next year!</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ CHIEF GUEST ══════════ -->
+<section id="chief-guest">
+  <div class="chief-inner">
+    <h2>Our Honored Chief Guest</h2>
+    <div class="chief-divider"></div>
+    <div class="chief-card">
+      <div class="chief-avatar">🏛️</div>
+      <div class="chief-name">Mayor Craig Greenberg</div>
+      <div class="chief-title">Mayor of Louisville, Kentucky</div>
+      <p class="chief-desc">
+        We are honored to welcome Louisville's Mayor Craig Greenberg as our chief guest.
+        His presence celebrates the city's vibrant, inclusive multicultural community and the spirit
+        of togetherness that Holi represents.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ FOOD VENDORS ══════════ -->
+<section id="vendors">
+  <div class="section-header">
+    <h2>Food &amp; <span class="accent">Vendors</span></h2>
+    <p>Savor an incredible spread of flavors from our amazing food vendors</p>
+    <div class="divider"></div>
+  </div>
+  <div class="vendors-grid">
+    <div class="vendor-card">
+      <div class="vendor-icon">🍦</div>
+      <div class="vendor-body">
+        <h3>Freezeland</h3>
+        <p>Louisville's beloved frozen desserts destination. Indulge in creamy ice cream, gelato, and refreshing frozen treats perfect for a spring festival day.</p>
+        <a href="https://newfreezelandusa.com/" target="_blank" rel="noopener" class="vendor-tag">🔗 newfreezelandusa.com</a>
+      </div>
+    </div>
+    <div class="vendor-card">
+      <div class="vendor-icon">🍛</div>
+      <div class="vendor-body">
+        <h3>Clay Oven</h3>
+        <p>Authentic Indian cuisine crafted in the traditional tandoor clay oven. Savory kebabs, aromatic curries, and freshly baked naan — a Louisville favorite.</p>
+        <a href="https://clayovenlouisville.com/" target="_blank" rel="noopener" class="vendor-tag">🔗 clayovenlouisville.com</a>
+      </div>
+    </div>
+    <div class="vendor-card">
+      <div class="vendor-icon">☕</div>
+      <div class="vendor-body">
+        <h3>Coffee Shop</h3>
+        <p>Start your festival experience right with a steaming cup of freshly brewed coffee, espresso drinks, chai lattes, and more specialty beverages.</p>
+        <span class="vendor-tag">☕ Your Café Fix</span>
+      </div>
+    </div>
+    <div class="vendor-card">
+      <div class="vendor-icon">🙏</div>
+      <div class="vendor-body">
+        <h3>Food by Hindu Temple</h3>
+        <p>Wholesome, delicious vegetarian food lovingly prepared and served by the Hindu Temple community. Enjoy authentic home-style Indian cooking made with devotion.</p>
+        <span class="vendor-tag">🌿 Vegetarian Delight</span>
+      </div>
+    </div>
+    <div class="vendor-card">
+      <div class="vendor-icon">🥤</div>
+      <div class="vendor-body">
+        <h3>Louisville Hindi Pathshala</h3>
+        <p>Cool off with refreshing beverages from the Hindi Pathshala stall. Enjoy chilled drinks and juices to keep you energized throughout the festival.</p>
+        <span class="vendor-tag">💧 Beverages &amp; Drinks</span>
+      </div>
+    </div>
+    <div class="vendor-card">
+      <div class="vendor-icon">🥟</div>
+      <div class="vendor-body">
+        <h3>Everest Momo</h3>
+        <p>Taste the Himalayas! Everest Momo brings authentic, juicy Nepali-style dumplings (momos) in a variety of flavors — steamed, fried, and sauced to perfection.</p>
+        <span class="vendor-tag">🏔️ Himalayan Flavors</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ GALLERY ══════════ -->
+<section id="gallery">
+  <div class="section-header">
+    <h2>Photo <span class="accent">Gallery</span></h2>
+    <p>Relive the colors, the joy, and the memories</p>
+    <div class="divider"></div>
+  </div>
+  <div class="gallery-grid" id="galleryGrid">
+    <div class="gallery-item" onclick="openLightbox(0)">
+      <img src="images/495556063_1263135979145174_6679334376900509865_n.jpg" alt="Holi Mela photo 1" loading="lazy" />
+    </div>
+    <div class="gallery-item" onclick="openLightbox(1)">
+      <img src="images/495094502_1263135965811842_5995826002376013037_n.jpg" alt="Holi Mela photo 2" loading="lazy" />
+    </div>
+    <div class="gallery-item" onclick="openLightbox(2)">
+      <img src="images/495185683_1263136002478505_8487763320488421695_n.jpg" alt="Holi Mela photo 3" loading="lazy" />
+    </div>
+    <div class="gallery-item" onclick="openLightbox(3)">
+      <img src="images/495369708_1263134275812011_8679568235114164367_n.jpg" alt="Holi Mela photo 4" loading="lazy" />
+    </div>
+    <div class="gallery-item" onclick="openLightbox(4)">
+      <img src="images/495050261_1263133785812060_8162158490061643910_n.jpg" alt="Holi Mela photo 5" loading="lazy" />
+    </div>
+    <div class="gallery-item" onclick="openLightbox(5)">
+      <img src="images/495844497_1263134132478692_8621574998209585110_n.jpg" alt="Holi Mela photo 6" loading="lazy" />
+    </div>
+    <div class="gallery-item" onclick="openLightbox(6)">
+      <img src="images/496001052_1263137262478379_3369362297725288395_n.jpg" alt="Holi Mela photo 7" loading="lazy" />
+    </div>
+    <div class="gallery-item" onclick="openLightbox(7)">
+      <img src="images/644238928_1532624155529687_5899792696644372942_n.jpg" alt="Holi Mela photo 8" loading="lazy" />
+    </div>
+    <div class="gallery-item" onclick="openLightbox(8)">
+      <img src="images/655916257_1549814203810682_3891959051845644855_n.jpg" alt="Holi Mela photo 9" loading="lazy" />
+    </div>
+  </div>
+  <p style="text-align:center; margin-top:24px; color:#aaa; font-size:0.85rem;">
+    More photos on <a href="https://FB.com/HindiLouisville" target="_blank" rel="noopener" style="color:var(--pink); font-weight:600;">Facebook @HindiLouisville</a>
+  </p>
+</section>
+
+<!-- ══════════ ORGANIZING TEAM ══════════ -->
+<section id="team">
+  <div class="section-header">
+    <h2>Organizing <span class="accent">Team</span></h2>
+    <p>The passionate volunteers who make this festival happen</p>
+    <div class="divider"></div>
+  </div>
+  <div class="team-grid">
+    <div class="team-card">
+      <div class="team-avatar">VG</div>
+      <h3>Vik Gupta</h3>
+      <p>Event Coordinator</p>
+    </div>
+    <div class="team-card">
+      <div class="team-avatar">PG</div>
+      <h3>Prateek Gupta</h3>
+      <p>Coordinator &amp; Sponsor</p>
+    </div>
+    <div class="team-card">
+      <div class="team-avatar">KS</div>
+      <h3>Kapil Shah</h3>
+      <p>Vendor Management</p>
+    </div>
+    <div class="team-card">
+      <div class="team-avatar">VB</div>
+      <h3>Vidhi B.</h3>
+      <p>Stage Performances</p>
+    </div>
+    <div class="team-card">
+      <div class="team-avatar">RK</div>
+      <h3>Raj Krishnani</h3>
+      <p>Sponsor</p>
+    </div>
+    <div class="team-card">
+      <div class="team-avatar">AS</div>
+      <h3>Ankit Srivastava</h3>
+      <p>Comms &amp; IT Volunteer</p>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ PARKING ══════════ -->
+<section id="parking">
+  <div class="parking-inner">
+    <div class="section-header">
+      <h2>🅿️ <span class="accent">Parking</span> Info</h2>
+      <div class="divider"></div>
+    </div>
+    <div class="parking-box">
+      <div class="parking-icon">🏛️</div>
+      <h3>Use Mandir (Temple) Parking</h3>
+      <p>Convenient parking is available at the Mandir (Hindu Temple) parking area adjacent to the event venue. Please follow the signage on-site for directions to the designated parking areas.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ MAP ══════════ -->
+<section id="map-section">
+  <div class="section-header">
+    <h2>📍 Event <span class="accent">Location</span></h2>
+    <p>4213 Accomack Dr, Louisville, KY 40241</p>
+    <div class="divider"></div>
+  </div>
+  <div class="map-wrap">
+    <iframe
+      title="Holi Mela 2026 Venue Location"
+      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3134.0!2d-85.5701!3d38.3036!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x886972b0a50c96f7%3A0x1b2a3c4d5e6f7890!2s4213+Accomack+Dr%2C+Louisville%2C+KY+40241!5e0!3m2!1sen!2sus!4v1700000000000!5m2!1sen!2sus"
+      allowfullscreen loading="lazy"
+      referrerpolicy="no-referrer-when-downgrade">
+    </iframe>
+  </div>
+  <p class="map-address">📍 4213 Accomack Dr, Louisville, KY 40241 &nbsp;|&nbsp; <a href="https://maps.google.com/?q=4213+Accomack+Dr,+Louisville,+KY+40241" target="_blank" rel="noopener" style="color:var(--purple); font-weight:700;">Get Directions →</a></p>
+</section>
+
+<!-- ══════════ TICKETS ══════════ -->
+<section id="tickets">
+  <div class="section-header">
+    <h2>Get Your <span class="accent">Tickets</span></h2>
+    <p>Don't miss out — secure your spot at Louisville's most colorful event!</p>
+    <div class="divider"></div>
+  </div>
+  <div class="tickets-inner">
+    <div class="ticket-box">
+      <p class="ticket-price">🎟 Available on Sulekha Events</p>
+      <h3>Holi Mela 2026 — Louisville</h3>
+      <ul class="ticket-features">
+        <li>Full day access (12 PM – 6 PM)</li>
+        <li>Live music &amp; dance performances</li>
+        <li>Holi color play at 3 PM</li>
+        <li>Access to all food vendors</li>
+        <li>Carnival games &amp; cultural workshops</li>
+        <li>Community marketplace &amp; more</li>
+      </ul>
+      <a href="https://events.sulekha.com/holi-mela-2026_event-in_louisville-ky_398906" target="_blank" rel="noopener" class="btn-primary" style="display:inline-block;">
+        🎟 Buy Tickets on Sulekha
+      </a>
+      <p style="margin-top:16px; color:#888; font-size:0.78rem;">
+        Note: All attendees including sponsors &amp; volunteers must purchase a ticket.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ DOS & DON'TS ══════════ -->
+<section id="rules">
+  <div class="section-header">
+    <h2>Dos &amp; <span class="accent">Don'ts</span></h2>
+    <p>Help us keep Holi Mela safe, fun, and inclusive for everyone</p>
+    <div class="divider"></div>
+  </div>
+  <div class="rules-grid">
+    <div class="rules-card dos">
+      <h3>✅ Please Do</h3>
+      <ul>
+        <li>Use only dry, safe Holi colors</li>
+        <li>Purchase and carry your ticket at all times</li>
+        <li>Wear clothes you don't mind getting colorful</li>
+        <li>Respect all fellow attendees and volunteers</li>
+        <li>Enjoy the festivities responsibly</li>
+      </ul>
+    </div>
+    <div class="rules-card donts">
+      <h3>❌ Please Don't</h3>
+      <ul>
+        <li>Bring wet colors or water balloons</li>
+        <li>Enter without a valid ticket — no exceptions</li>
+        <li>Apply colors to anyone without consent</li>
+        <li>Bring outside food or beverages</li>
+        <li>Litter — help keep the venue clean</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ ABOUT PATHSHALA ══════════ -->
+<section id="pathshala">
+  <div class="section-header">
+    <h2>About <span class="accent">Louisville Hindi Paathshaala</span></h2>
+    <div class="divider"></div>
+  </div>
+  <div class="pathshala-inner">
+    <h2>🏫 Who We Are</h2>
+    <p>
+      Louisville Hindi Paathshaala, Inc. is a Section <strong>501(c)(3) non-profit organization</strong>, established with the aim
+      of teaching Hindi as a second language. Hindi is the national language of India, and the fourth most widely spoken language
+      in the world along with English, Spanish and Mandarin.
+    </p>
+    <br />
+    <p>
+      It is run by a group of <strong>20 passionate volunteer teachers</strong>, who conduct classes every Friday evening at
+      Zachary Taylor Elementary School (a JCPS school) to teach Hindi to a mix of <strong>99 students</strong>, including Hindus,
+      Christians, Muslims, Caucasians and East Asians, of ages between 6 and 45, drawn from across the Louisville diaspora.
+    </p>
+    <br />
+    <p>
+      We have come a long way from our humble beginning of 15 students just a few years ago, and aspire to make
+      <strong>Hindi a JCPS course</strong> like Spanish and Latin.
+    </p>
+  </div>
+</section>
+
+<!-- ══════════ VOLUNTEER ══════════ -->
+<section id="volunteer">
+  <h2>🎓 Student Volunteer Registration</h2>
+  <p>
+    High school students — earn Beta Club volunteering hours at Holi Mela 2026!
+    Registration is now open. Sign up today and be part of something special.
+  </p>
+  <a href="https://forms.gle/pDV9HM9dvmTP1aox9" target="_blank" rel="noopener" class="btn-primary" style="display:inline-block;">
+    📋 Register as Volunteer
+  </a>
+</section>
+
+<!-- ══════════ CONTACT ══════════ -->
+<section id="contact">
+  <div class="section-header">
+    <h2>Press &amp; <span class="accent">Contact</span></h2>
+    <p>Reach out to the right person for your query</p>
+    <div class="divider"></div>
+  </div>
+  <div class="contact-grid">
+    <div class="contact-card">
+      <h3>📋 General Inquiry</h3>
+      <div class="contact-item">
+        <span class="ci-icon">👤</span>
+        <div class="ci-text"><strong>Vikas Gupta</strong>502-802-6340</div>
+      </div>
+    </div>
+    <div class="contact-card">
+      <h3>🏪 Vendor Management</h3>
+      <div class="contact-item">
+        <span class="ci-icon">👤</span>
+        <div class="ci-text"><strong>Kapil Shah</strong>502-572-9631</div>
+      </div>
+      <div class="contact-item">
+        <span class="ci-icon">👤</span>
+        <div class="ci-text"><strong>Vik Gupta</strong>502-802-6340</div>
+      </div>
+    </div>
+    <div class="contact-card">
+      <h3>🎭 Stage Performances</h3>
+      <div class="contact-item">
+        <span class="ci-icon">👤</span>
+        <div class="ci-text"><strong>Vidhi B.</strong>502-296-6444</div>
+      </div>
+    </div>
+    <div class="contact-card">
+      <h3>🤝 Sponsorships</h3>
+      <div class="contact-item">
+        <span class="ci-icon">👤</span>
+        <div class="ci-text"><strong>Raj Krishnani</strong>502-500-2131</div>
+      </div>
+    </div>
+    <div class="contact-card">
+      <h3>🎓 Student Volunteers</h3>
+      <div class="contact-item">
+        <span class="ci-icon">👤</span>
+        <div class="ci-text"><strong>Saahil T.</strong>502-999-7902</div>
+      </div>
+    </div>
+    <div class="contact-card">
+      <h3>📸 Press &amp; Media</h3>
+      <div class="contact-item">
+        <span class="ci-icon">👤</span>
+        <div class="ci-text"><strong>Ankit Srivastava</strong>781-985-5063</div>
+      </div>
+      <div class="contact-item">
+        <span class="ci-icon">✉️</span>
+        <div class="ci-text"><a href="mailto:srankit@gmail.com" style="color:var(--teal);">srankit@gmail.com</a></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ FOOTER ══════════ -->
+<footer>
+  <p style="font-size:1.2rem; margin-bottom:8px;">🎨 Happy Holi! 🌈</p>
+  <p>Louisville Holi Mela 2026 &nbsp;|&nbsp; Organized by <a href="#pathshala">Louisville Hindi Paathshaala</a></p>
+  <p style="margin-top:8px;">📍 4213 Accomack Dr, Louisville, KY 40241 &nbsp;|&nbsp; April 26, 2026, 12–6 PM ET</p>
+  <p style="margin-top:12px;">
+    <a href="https://FB.com/HindiLouisville" target="_blank" rel="noopener">Facebook</a> &nbsp;|&nbsp;
+    <a href="https://events.sulekha.com/holi-mela-2026_event-in_louisville-ky_398906" target="_blank" rel="noopener">Buy Tickets</a>
+  </p>
+</footer>
+
+<!-- ══════════ LIGHTBOX ══════════ -->
+<div class="lightbox" id="lightbox">
+  <span class="lb-close" onclick="closeLightbox()">×</span>
+  <button class="lb-prev" onclick="changeLb(-1)">‹</button>
+  <img id="lbImg" src="" alt="Gallery full view" />
+  <button class="lb-next" onclick="changeLb(1)">›</button>
+</div>
+
+<script>
+  /* ── Mobile nav toggle ── */
+  const navToggle = document.getElementById('nav-toggle');
+  const navLinks  = document.getElementById('navLinks');
+  navToggle.addEventListener('change', () => {
+    navLinks.classList.toggle('open', navToggle.checked);
+  });
+  navLinks.querySelectorAll('a').forEach(a => {
+    a.addEventListener('click', () => {
+      navToggle.checked = false;
+      navLinks.classList.remove('open');
+    });
+  });
+
+  /* ── Lightbox ── */
+  const images = [
+    'images/495556063_1263135979145174_6679334376900509865_n.jpg',
+    'images/495094502_1263135965811842_5995826002376013037_n.jpg',
+    'images/495185683_1263136002478505_8487763320488421695_n.jpg',
+    'images/495369708_1263134275812011_8679568235114164367_n.jpg',
+    'images/495050261_1263133785812060_8162158490061643910_n.jpg',
+    'images/495844497_1263134132478692_8621574998209585110_n.jpg',
+    'images/496001052_1263137262478379_3369362297725288395_n.jpg',
+    'images/644238928_1532624155529687_5899792696644372942_n.jpg',
+    'images/655916257_1549814203810682_3891959051845644855_n.jpg',
+  ];
+  let currentLb = 0;
+  function openLightbox(idx) {
+    currentLb = idx;
+    document.getElementById('lbImg').src = images[idx];
+    document.getElementById('lightbox').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeLightbox() {
+    document.getElementById('lightbox').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+  function changeLb(dir) {
+    currentLb = (currentLb + dir + images.length) % images.length;
+    document.getElementById('lbImg').src = images[currentLb];
+  }
+  document.getElementById('lightbox').addEventListener('click', function(e) {
+    if (e.target === this) closeLightbox();
+  });
+  document.addEventListener('keydown', e => {
+    if (!document.getElementById('lightbox').classList.contains('open')) return;
+    if (e.key === 'Escape') closeLightbox();
+    if (e.key === 'ArrowLeft')  changeLb(-1);
+    if (e.key === 'ArrowRight') changeLb(1);
+  });
+
+  /* ── Active nav on scroll ── */
+  const sections = document.querySelectorAll('section[id]');
+  const navA = document.querySelectorAll('.nav-links a');
+  window.addEventListener('scroll', () => {
+    let cur = '';
+    sections.forEach(s => { if (window.scrollY >= s.offsetTop - 80) cur = s.id; });
+    navA.forEach(a => {
+      a.style.color = a.getAttribute('href') === '#' + cur ? 'var(--yellow)' : '';
+    });
+  }, { passive: true });
+</script>
+</body>
+</html>
