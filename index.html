@@ -75,10 +75,15 @@
       background: var(--grad1);
       color: #fff !important; font-weight: 700 !important;
       padding: 8px 20px; border-radius: 50px;
-      box-shadow: 0 4px 15px rgba(233,30,140,0.4);
+      box-shadow: 0 4px 15px rgba(233,30,140,0.4), 0 0 12px rgba(233,30,140,0.5), 0 0 24px rgba(255,107,53,0.3);
+      animation: ticketGlow 2.5s ease-in-out infinite alternate;
       transition: transform 0.2s, box-shadow 0.2s !important;
     }
-    .btn-ticket-nav:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(233,30,140,0.6) !important; }
+    .btn-ticket-nav:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(233,30,140,0.6), 0 0 20px rgba(233,30,140,0.7), 0 0 40px rgba(255,107,53,0.4) !important; }
+    @keyframes ticketGlow {
+      from { box-shadow: 0 4px 15px rgba(233,30,140,0.4), 0 0 10px rgba(233,30,140,0.4), 0 0 20px rgba(255,107,53,0.2); }
+      to   { box-shadow: 0 4px 15px rgba(233,30,140,0.5), 0 0 18px rgba(233,30,140,0.7), 0 0 36px rgba(255,107,53,0.5); }
+    }
     .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; }
     .hamburger span { width: 26px; height: 2px; background: #fff; border-radius: 2px; transition: 0.3s; }
     #nav-toggle { display: none; }
@@ -145,11 +150,12 @@
     .btn-primary {
       background: var(--grad1); color: #fff;
       padding: 16px 40px; border-radius: 50px; font-size: 1.1rem; font-weight: 700;
-      box-shadow: 0 6px 25px rgba(233,30,140,0.5);
+      box-shadow: 0 6px 25px rgba(233,30,140,0.5), 0 0 12px rgba(233,30,140,0.5), 0 0 24px rgba(255,107,53,0.3);
+      animation: ticketGlow 2.5s ease-in-out infinite alternate;
       transition: transform 0.25s, box-shadow 0.25s;
       display: inline-block;
     }
-    .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 10px 35px rgba(233,30,140,0.7); color: #fff; }
+    .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 10px 35px rgba(233,30,140,0.7), 0 0 20px rgba(233,30,140,0.7), 0 0 40px rgba(255,107,53,0.5); color: #fff; }
     .btn-secondary {
       background: rgba(255,255,255,0.12); border: 2px solid #fff; color: #fff;
       padding: 14px 36px; border-radius: 50px; font-size: 1.1rem; font-weight: 600;
@@ -506,8 +512,10 @@
       .pathshala-inner { padding: 30px 24px; }
     }
     @media (max-width: 640px) {
-      .nav-links { display: none; flex-direction: column; position: fixed; top: 64px; left: 0; right: 0; bottom: 0; background: rgba(26,10,46,0.97); padding: 30px 20px; gap: 24px; overflow-y: auto; z-index: 999; }
+      .nav-links { display: none; flex-direction: column; position: fixed; top: 64px; left: 0; right: 0; background: rgba(26,10,46,0.98); padding: 16px 20px; gap: 6px; z-index: 999; border-bottom: 2px solid rgba(233,30,140,0.4); }
       .nav-links.open { display: flex; }
+      .nav-links a { padding: 12px 0; border-bottom: 1px solid rgba(255,255,255,0.07); font-size: 1rem; display: block; width: 100%; }
+      .nav-links li:last-child a { border-bottom: none; margin-top: 8px; text-align: center; }
       .hamburger { display: flex; }
       .gallery-grid { grid-template-columns: 1fr 1fr; gap: 8px; }
       section { padding: 60px 5%; }
@@ -552,6 +560,7 @@
     <li><a href="#schedule">Schedule</a></li>
     <li><a href="#vendors">Food</a></li>
     <li><a href="#gallery">Gallery</a></li>
+    <li><a href="#map-section">Event Location</a></li>
     <li><a href="#contact">Contact</a></li>
     <li><a href="https://events.sulekha.com/holi-mela-2026_event-in_louisville-ky_398906" target="_blank" rel="noopener" class="btn-ticket-nav">🎟 Buy Tickets</a></li>
   </ul>
