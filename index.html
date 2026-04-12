@@ -527,6 +527,129 @@
       .rules-grid { grid-template-columns: 1fr; }
     }
 
+    /* ─── BALLOON GAME ───────────────────────────────────────────── */
+    .game-fab {
+      position: fixed; bottom: 28px; right: 28px; z-index: 500;
+      background: var(--grad1); color: #fff; border: none; border-radius: 50px;
+      padding: 14px 22px; font-size: 0.95rem; font-weight: 700; cursor: pointer;
+      font-family: 'Poppins', sans-serif;
+      box-shadow: 0 6px 20px rgba(233,30,140,0.5), 0 0 18px rgba(233,30,140,0.4);
+      animation: ticketGlow 2.5s ease-in-out infinite alternate;
+      transition: transform 0.2s;
+    }
+    .game-fab:hover { transform: scale(1.08); }
+    .game-overlay {
+      display: none; position: fixed; inset: 0; z-index: 2000;
+      background: rgba(10, 4, 20, 0.93); overflow: hidden;
+    }
+    .game-overlay.open { display: block; }
+    .game-header {
+      position: absolute; top: 0; left: 0; right: 0;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 16px 24px; z-index: 10;
+      background: rgba(0,0,0,0.3); backdrop-filter: blur(6px);
+    }
+    .game-title-text {
+      color: #fff; font-weight: 700; font-size: 1rem;
+      background: var(--grad1); -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    }
+    .game-score-display {
+      color: #fff; font-weight: 700; font-size: 1rem;
+    }
+    .game-score-display span { color: var(--yellow); font-size: 1.3rem; }
+    .game-close-btn {
+      background: rgba(255,255,255,0.15); border: 2px solid rgba(255,255,255,0.3);
+      color: #fff; font-size: 1.2rem; width: 42px; height: 42px;
+      border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center;
+      transition: background 0.2s, transform 0.3s; font-family: 'Poppins', sans-serif;
+    }
+    .game-close-btn:hover { background: rgba(255,255,255,0.28); transform: rotate(90deg); }
+    .game-hint {
+      position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%);
+      color: rgba(255,255,255,0.4); font-size: 0.8rem; z-index: 10; white-space: nowrap;
+    }
+    /* Balloon */
+    .balloon-wrap { position: absolute; cursor: pointer; }
+    .balloon-wrap:hover .balloon-body { filter: brightness(1.15); }
+    .balloon-body {
+      border-radius: 50% 50% 50% 50% / 40% 40% 60% 60%;
+      position: relative; transition: filter 0.15s, transform 0.15s;
+      animation: sway 3s ease-in-out infinite alternate;
+    }
+    @keyframes sway {
+      from { transform: rotate(var(--tilt)); }
+      to   { transform: rotate(calc(var(--tilt) * -1.5)); }
+    }
+    .balloon-body::before {
+      content: ''; position: absolute; top: 18%; left: 22%;
+      width: 22%; height: 28%; border-radius: 50%;
+      background: rgba(255,255,255,0.38); transform: rotate(-30deg);
+    }
+    .balloon-knot {
+      width: 10px; height: 12px; margin: 0 auto;
+      clip-path: polygon(50% 100%, 5% 0%, 95% 0%);
+    }
+    .balloon-string {
+      width: 1.5px; height: 55px; background: rgba(255,255,255,0.35);
+      margin: 0 auto; border-radius: 1px;
+      animation: stringSway 3s ease-in-out infinite alternate;
+    }
+    @keyframes stringSway {
+      from { transform: rotate(3deg); transform-origin: top; }
+      to   { transform: rotate(-3deg); transform-origin: top; }
+    }
+    @keyframes riseUp {
+      0%   { transform: translateY(0);   opacity: 1; }
+      85%  { opacity: 1; }
+      100% { transform: translateY(calc(-100vh - 250px)); opacity: 0; }
+    }
+    /* Splash effects */
+    .splash-particle {
+      position: absolute; border-radius: 50%; pointer-events: none; z-index: 5;
+      animation: splashFly var(--dur) ease-out forwards;
+    }
+    @keyframes splashFly {
+      0%   { transform: translate(0,0) scale(1); opacity: 1; }
+      100% { transform: translate(var(--dx), var(--dy)) scale(0.15); opacity: 0; }
+    }
+    .splash-blob {
+      position: absolute; border-radius: 50%; pointer-events: none; z-index: 4;
+      animation: blobPop 0.55s ease-out forwards;
+    }
+    @keyframes blobPop {
+      0%   { transform: scale(0); opacity: 0.85; }
+      55%  { transform: scale(1.3); opacity: 0.55; }
+      100% { transform: scale(2.2); opacity: 0; }
+    }
+    .pop-ring {
+      position: absolute; border-radius: 50%; pointer-events: none; z-index: 6;
+      border: 4px solid var(--ring-color);
+      animation: ringOut 0.5s ease-out forwards;
+    }
+    @keyframes ringOut {
+      0%   { transform: scale(0); opacity: 1; }
+      100% { transform: scale(3.5); opacity: 0; }
+    }
+    .splash-drip {
+      position: absolute; pointer-events: none; z-index: 4;
+      border-radius: 4px 4px 50% 50%;
+      transform-origin: top center;
+      animation: dripDown var(--dur) ease-in forwards;
+    }
+    @keyframes dripDown {
+      0%   { transform: scaleY(0); opacity: 1; }
+      40%  { transform: scaleY(1); opacity: 1; }
+      100% { transform: scaleY(1) translateY(90px); opacity: 0; }
+    }
+    @keyframes fadeInMsg {
+      from { opacity: 0; } to { opacity: 1; }
+    }
+    @keyframes popIn {
+      0%   { transform: scale(0.5); opacity: 0; }
+      70%  { transform: scale(1.08); }
+      100% { transform: scale(1); opacity: 1; }
+    }
+
     /* ─── PARKING SECTION ───────────────────────────────────────── */
     #parking { background: linear-gradient(135deg, #f0fff4, #e8f4ff); }
     .parking-inner {
@@ -1061,6 +1184,21 @@
   </p>
 </footer>
 
+<!-- ══════════ BALLOON GAME FAB ══════════ -->
+<button class="game-fab" onclick="openGame()">🎈 Pop Balloons!</button>
+
+<!-- ══════════ BALLOON GAME OVERLAY ══════════ -->
+<div class="game-overlay" id="gameOverlay">
+  <div class="game-header">
+    <div class="game-title-text">🎨 Holi Balloon Pop!</div>
+    <div class="game-score-display">Popped: <span id="scoreCount">0</span></div>
+    <button class="game-close-btn" onclick="closeGame()">✕</button>
+  </div>
+  <div id="gameArena" style="position:absolute;inset:0;top:64px;"></div>
+  <div id="splashContainer" style="position:absolute;inset:0;pointer-events:none;overflow:hidden;"></div>
+  <div class="game-hint">Click the balloons to pop them! 🎯</div>
+</div>
+
 <!-- ══════════ LIGHTBOX ══════════ -->
 <div class="lightbox" id="lightbox">
   <span class="lb-close" onclick="closeLightbox()">×</span>
@@ -1119,6 +1257,174 @@
     if (e.key === 'ArrowLeft')  changeLb(-1);
     if (e.key === 'ArrowRight') changeLb(1);
   });
+
+  /* ── Balloon Game ── */
+  const GAME_COLORS = [
+    '#e91e8c','#ff6b35','#ffd23f','#7b2d8b',
+    '#00b4d8','#06d6a0','#ff4d6d','#a855f7',
+    '#3b82f6','#f59e0b','#10b981','#ef4444'
+  ];
+  let balloonTimer = null, spawnTimer = null, gameScore = 0;
+
+  function openGame() {
+    document.getElementById('gameOverlay').classList.add('open');
+    document.body.style.overflow = 'hidden';
+    gameScore = 0;
+    document.getElementById('scoreCount').textContent = 0;
+    document.getElementById('gameArena').innerHTML = '';
+    document.getElementById('splashContainer').innerHTML = '';
+    const old = document.getElementById('happyHoliMsg');
+    if (old) old.remove();
+    scheduleSpawn();
+  }
+
+  function closeGame() {
+    document.getElementById('gameOverlay').classList.remove('open');
+    document.body.style.overflow = '';
+    clearTimeout(balloonTimer);
+    clearInterval(spawnTimer);
+  }
+
+  function scheduleSpawn() {
+    spawnBalloon();
+    spawnTimer = setInterval(spawnBalloon, 1100);
+  }
+
+  function spawnBalloon() {
+    const arena = document.getElementById('gameArena');
+    const color = GAME_COLORS[Math.floor(Math.random() * GAME_COLORS.length)];
+    const size  = 52 + Math.random() * 38;
+    const left  = 4 + Math.random() * 86;
+    const rise  = 6 + Math.random() * 5;
+    const tilt  = (Math.random() - 0.5) * 18;
+
+    const wrap = document.createElement('div');
+    wrap.className = 'balloon-wrap';
+    wrap.style.cssText = `left:${left}%;bottom:-180px;animation:riseUp ${rise}s linear forwards;`;
+
+    const body = document.createElement('div');
+    body.className = 'balloon-body';
+    body.style.cssText = `width:${size}px;height:${size*1.18}px;background:radial-gradient(circle at 35% 30%,${color}bb,${color});--tilt:${tilt}deg;`;
+
+    const knot = document.createElement('div');
+    knot.className = 'balloon-knot';
+    knot.style.cssText = `background:${color};filter:brightness(0.65);`;
+
+    const str = document.createElement('div');
+    str.className = 'balloon-string';
+
+    wrap.appendChild(body);
+    wrap.appendChild(knot);
+    wrap.appendChild(str);
+    arena.appendChild(wrap);
+
+    wrap.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const r = body.getBoundingClientRect();
+      const cx = r.left + r.width / 2;
+      const cy = r.top  + r.height / 2;
+      wrap.remove();
+      popSplash(cx, cy, color);
+      gameScore++;
+      document.getElementById('scoreCount').textContent = gameScore;
+      if (gameScore >= 4) showHappyHoli();
+    });
+
+    setTimeout(() => { if (wrap.parentNode) wrap.remove(); }, rise * 1000 + 200);
+  }
+
+  function showHappyHoli() {
+    clearInterval(spawnTimer);
+    const overlay = document.getElementById('gameOverlay');
+    const msg = document.createElement('div');
+    msg.id = 'happyHoliMsg';
+    msg.style.cssText = `
+      position:absolute;inset:0;display:flex;flex-direction:column;
+      align-items:center;justify-content:center;z-index:20;
+      background:rgba(10,4,20,0.7);backdrop-filter:blur(6px);
+      animation:fadeInMsg 0.5s ease forwards;
+    `;
+    msg.innerHTML = `
+      <div style="text-align:center;padding:20px;">
+        <div style="font-size:clamp(3rem,12vw,6rem);line-height:1;margin-bottom:16px;animation:popIn 0.6s ease forwards;">🎨</div>
+        <h2 style="font-family:'Dancing Script',cursive;font-size:clamp(2.5rem,10vw,5rem);
+          background:linear-gradient(135deg,#e91e8c,#ff6b35,#ffd23f);
+          -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+          margin-bottom:8px;animation:popIn 0.6s 0.15s ease both;">Happy Holi!</h2>
+        <p style="color:rgba(255,255,255,0.85);font-size:clamp(1rem,3vw,1.3rem);
+          margin-bottom:32px;animation:popIn 0.6s 0.3s ease both;">
+          You popped 4 balloons! 🎉 Spread the colors of joy!
+        </p>
+        <button onclick="closeGame()" style="
+          background:linear-gradient(135deg,#e91e8c,#ff6b35,#ffd23f);
+          color:#fff;border:none;border-radius:50px;
+          padding:14px 36px;font-size:1rem;font-weight:700;cursor:pointer;
+          font-family:'Poppins',sans-serif;
+          box-shadow:0 6px 24px rgba(233,30,140,0.5);
+          animation:popIn 0.6s 0.45s ease both;
+          transition:transform 0.2s;">Close 🎈</button>
+      </div>
+    `;
+    overlay.appendChild(msg);
+  }
+
+  function popSplash(x, y, color) {
+    const c = document.getElementById('splashContainer');
+
+    // Blob
+    const blob = document.createElement('div');
+    blob.className = 'splash-blob';
+    blob.style.cssText = `left:${x-65}px;top:${y-65}px;width:130px;height:130px;background:${color}99;`;
+    c.appendChild(blob);
+    setTimeout(() => blob.remove(), 700);
+
+    // Ring
+    const ring = document.createElement('div');
+    ring.className = 'pop-ring';
+    ring.style.cssText = `left:${x-24}px;top:${y-24}px;width:48px;height:48px;--ring-color:${color};`;
+    c.appendChild(ring);
+    setTimeout(() => ring.remove(), 600);
+
+    // Particles
+    const count = 22;
+    for (let i = 0; i < count; i++) {
+      const p = document.createElement('div');
+      p.className = 'splash-particle';
+      const sz  = 7 + Math.random() * 14;
+      const ang = (i / count) * 360 + Math.random() * 16;
+      const dst = 55 + Math.random() * 95;
+      const dur = (0.45 + Math.random() * 0.45).toFixed(2);
+      p.style.cssText = `
+        left:${x-sz/2}px;top:${y-sz/2}px;
+        width:${sz}px;height:${sz}px;
+        background:${color};
+        --dx:${(Math.cos(ang*Math.PI/180)*dst).toFixed(1)}px;
+        --dy:${(Math.sin(ang*Math.PI/180)*dst).toFixed(1)}px;
+        --dur:${dur}s;
+      `;
+      c.appendChild(p);
+      setTimeout(() => p.remove(), parseFloat(dur) * 1000 + 100);
+    }
+
+    // Drips
+    for (let i = 0; i < 5; i++) {
+      const drip = document.createElement('div');
+      drip.className = 'splash-drip';
+      const dw  = 5 + Math.random() * 7;
+      const dh  = 18 + Math.random() * 28;
+      const dur = (0.9 + Math.random() * 0.5).toFixed(2);
+      drip.style.cssText = `
+        left:${x + (Math.random()-0.5)*70}px;
+        top:${y}px;
+        width:${dw}px;height:${dh}px;
+        background:${color}cc;
+        --dur:${dur}s;
+        animation-delay:${(Math.random()*0.2).toFixed(2)}s;
+      `;
+      c.appendChild(drip);
+      setTimeout(() => drip.remove(), parseFloat(dur)*1000+400);
+    }
+  }
 
   /* ── Active nav on scroll ── */
   const sections = document.querySelectorAll('section[id]');
