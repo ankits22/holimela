@@ -797,13 +797,6 @@
     .sr-msg-error    { background: rgba(255,77,109,0.12);  border: 1px solid #ff4d6d;      color: #ff4d6d; }
     .sr-msg-fallback { background: rgba(255,210,63,0.12);  border: 1px solid var(--yellow); color: var(--yellow); }
 
-    .sr-reset-btn {
-      background: transparent; border: 1px solid rgba(255,255,255,0.18);
-      color: rgba(255,255,255,0.4); padding: 8px 20px; border-radius: 50px;
-      font-size: 0.78rem; cursor: pointer; font-family: 'Poppins', sans-serif;
-      margin-top: 12px; transition: border-color 0.2s, color 0.2s;
-    }
-    .sr-reset-btn:hover { border-color: rgba(255,77,109,0.5); color: #ff4d6d; }
     @media (max-width: 480px) {
       .sr-grid { grid-template-columns: repeat(2, 1fr); max-width: 360px; }
       .sr-counter-badge { padding: 10px 18px; font-size: 0.9rem; }
@@ -886,7 +879,7 @@
 <section id="stamp-rally">
   <div class="section-header">
     <h2>🎯 Stamp <span class="accent">Rally</span></h2>
-    <p>Visit every vendor counter, scan their QR code &amp; collect all 16 stamps to enter the lucky draw!</p>
+    <p>Visit every vendor counter, scan their QR code &amp; collect all 17 stamps to enter the lucky draw!</p>
     <div class="divider"></div>
   </div>
 
@@ -903,7 +896,7 @@
     <div class="sr-counter-badge">
       <span>Stamps collected:</span>
       <span class="sr-count-num" id="srCountNum">0</span>
-      <span class="sr-count-of">/ 16</span>
+      <span class="sr-count-of">/ 17</span>
       <span id="srCountEmoji">🎯</span>
     </div>
   </div>
@@ -920,8 +913,6 @@
       🎯 Collect all 6 stamps to unlock
     </button>
     <div class="sr-msg" id="srMsg" style="display:none;"></div>
-    <br />
-    <button class="sr-reset-btn" onclick="srReset()">🗑 Reset all stamps</button>
   </div>
 
 </section>
@@ -1466,6 +1457,17 @@
         <h3>Laxmi Management</h3>
         <p>Professional financial services tailored for the South Asian community — investments, insurance, and wealth advisory.</p>
         <span class="vendor-tag">💼 Financial Services</span>
+      </div>
+    </div>
+
+    <div class="vendor-card">
+      <div class="vendor-icon" style="padding:10px;background:#fff;">
+        <img src="images/Ascendia.jpg" alt="Ascendia Financial Solutions Logo" style="height:70px;width:100%;object-fit:contain;" />
+      </div>
+      <div class="vendor-body">
+        <h3>Ascendia Financial Solutions</h3>
+        <p>Expert financial planning, investment advisory, and wealth management services to help you achieve your financial goals.</p>
+        <span class="vendor-tag">📈 Financial Services</span>
       </div>
     </div>
 
@@ -2082,6 +2084,7 @@
     { id: 'happy-col',       token: 'Wg6Ec4Jy0aQ2tX8n', name: 'Happy Collections',          logo: '',                                emoji: 'HC' },
     { id: 'save-soil',       token: 'Lf3Mn9Dh5iO7kR1p', name: 'Save Soil',                  logo: 'images/savesoil.png',             emoji: '🌱' },
     { id: 'laxmi-mgmt',      token: 'Ax1Bv7Cw2Dy3Ez4q', name: 'Laxmi Management',           logo: '',                                emoji: 'LM' },
+    { id: 'ascendia',        token: 'Zp8Qr2Tn5Uj9Vk1Lw', name: 'Ascendia Financial Solutions', logo: 'images/Ascendia.jpg',             emoji: '📈' },
   ];
   const SR_TOTAL      = VENDORS.length;
   const SR_KEY        = 'holiStampRally2026';

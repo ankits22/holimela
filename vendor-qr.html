@@ -120,6 +120,12 @@
       color: #e91e8c;
       font-weight: 600;
     }
+    .qr-win {
+      font-size: 0.72rem;
+      color: #ff6b35;
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
 
     @media print {
       body { background: #fff; padding: 10px; }
@@ -159,28 +165,31 @@
     { id: 'jai-hind',        token: 'bT8nX3wQ6yF1mK4r', name: 'Jai Hind',                   logo: 'images/Jaihind.jpeg' },
     { id: 'everest-momo',    token: 'eN6aM3xI0pV5cB1q', name: 'Everest Momo',               logo: 'images/EverestMomoLogo.jpeg' },
     { id: 'rsm',             token: 'Xk9Lp2Wv7nY4cB8j', name: 'Russian School of Math',     logo: 'images/rsm.png' },
-    { id: 'rasa',            token: 'Qm3Hn6Zt1fJ8wD5e', name: 'Rasa & Co LLC',              logo: '' },
-    { id: 'purejoy',         token: 'Vc4Kg9Ex2sM7rN1a', name: 'PureJoy Jewelry',            logo: '' },
+    { id: 'rasa',            token: 'Qm3Hn6Zt1fJ8wD5e', name: 'Rasa & Co LLC',              logo: '', abbr: 'RASA' },
+    { id: 'purejoy',         token: 'Vc4Kg9Ex2sM7rN1a', name: 'PureJoy Jewelry',            logo: '', abbr: 'PureJoy' },
     { id: 'kumon',           token: 'Yb7Tf0Ap5uI3qH6c', name: 'Kumon',                      logo: 'images/kumon.jpg' },
-    { id: 'taattva',         token: 'Rd2Ow8Gj4eL6xC9s', name: 'Taattva',                    logo: '' },
-    { id: 'mudra-wealth',    token: 'Pn5Sk1Ub7mF3vZ0t', name: 'Mudra Wealth Creation',      logo: '' },
-    { id: 'happy-col',       token: 'Wg6Ec4Jy0aQ2tX8n', name: 'Happy Collections',          logo: '' },
+    { id: 'taattva',         token: 'Rd2Ow8Gj4eL6xC9s', name: 'Taattva',                    logo: '', abbr: 'Taattva' },
+    { id: 'mudra-wealth',    token: 'Pn5Sk1Ub7mF3vZ0t', name: 'Mudra Wealth Creation',      logo: '', abbr: 'MUDRA' },
+    { id: 'happy-col',       token: 'Wg6Ec4Jy0aQ2tX8n', name: 'Happy Collections',          logo: '', abbr: 'Happy' },
     { id: 'save-soil',       token: 'Lf3Mn9Dh5iO7kR1p', name: 'Save Soil',                  logo: 'images/savesoil.png' },
-    { id: 'laxmi-mgmt',      token: 'Ax1Bv7Cw2Dy3Ez4q', name: 'Laxmi Management',           logo: '' },
+    { id: 'laxmi-mgmt',      token: 'Ax1Bv7Cw2Dy3Ez4q', name: 'Laxmi Management',           logo: '', abbr: 'LAXMI' },
+    { id: 'ascendia',        token: 'Zp8Qr2Tn5Uj9Vk1Lw', name: 'Ascendia Financial Solutions', logo: 'images/Ascendia.jpg' },
   ];
 
   var grid = document.getElementById('qrGrid');
 
   VENDORS.forEach(function(v) {
     var url = BASE + '/?stamp=' + v.id + '&t=' + v.token;
+    var abbr = v.abbr || v.name.substring(0,4).toUpperCase();
     var logoHtml = v.logo
       ? '<img src="' + v.logo + '" alt="' + v.name + '" class="qr-logo" onerror="this.style.display=\'none\';this.nextElementSibling.style.display=\'block\'">' +
-        '<span class="qr-logo-text" style="display:none">' + v.name.substring(0,4).toUpperCase() + '</span>'
-      : '<span class="qr-logo-text">' + v.name.substring(0,4).toUpperCase() + '</span>';
+        '<span class="qr-logo-text" style="display:none">' + abbr + '</span>'
+      : '<span class="qr-logo-text">' + abbr + '</span>';
 
     var card = document.createElement('div');
     card.className = 'qr-card';
     card.innerHTML =
+      '<div class="qr-win">🏆 Scan QR code to win exciting prizes!</div>' +
       '<div class="qr-logo-wrap">' + logoHtml + '</div>' +
       '<div class="qr-name">' + v.name + '</div>' +
       '<div class="qr-box" id="qr-' + v.id + '"></div>' +
