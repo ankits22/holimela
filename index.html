@@ -25,7 +25,7 @@
       --grad2: linear-gradient(135deg, #7b2d8b, #e91e8c);
       --shadow: 0 8px 32px rgba(0,0,0,0.18);
     }
-    html { scroll-behavior: smooth; }
+    html { scroll-behavior: smooth; scroll-padding-top: 80px; }
     body {
       font-family: 'Poppins', sans-serif;
       background: var(--light);
@@ -147,6 +147,30 @@
       line-height: 1.8; text-shadow: 0 1px 6px rgba(0,0,0,0.4);
     }
     .hero-desc strong { color: var(--yellow); }
+    /* ─── STAMP RALLY CORNER BADGE ──────────────────────────────────── */
+    .sr-corner-badge {
+      position: fixed; top: 72px; left: 12px; z-index: 998;
+      display: flex; align-items: center; gap: 7px;
+      background: linear-gradient(135deg, #e91e8c, #ff6b35);
+      color: #fff; text-decoration: none;
+      padding: 7px 14px 7px 10px;
+      border-radius: 50px;
+      font-family: 'Poppins', sans-serif;
+      font-size: 0.78rem; font-weight: 700;
+      box-shadow: 0 4px 16px rgba(233,30,140,0.45);
+      transition: transform 0.18s, box-shadow 0.18s;
+      animation: badgeBounce 3.5s ease-in-out infinite;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .sr-corner-badge:hover, .sr-corner-badge:active {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 22px rgba(233,30,140,0.6);
+    }
+    .sr-corner-badge .cb-icon { font-size: 1rem; line-height: 1; }
+    @keyframes badgeBounce {
+      0%, 100% { transform: translateY(0); }
+      50%       { transform: translateY(-4px); }
+    }
     .hero-btns { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; margin-top: 30px; }
     .btn-primary {
       background: var(--grad1); color: #fff;
@@ -827,6 +851,12 @@
     <li><a href="https://events.sulekha.com/holi-mela-2026_event-in_louisville-ky_398906" target="_blank" rel="noopener" class="btn-ticket-nav">🎟 Buy Tickets</a></li>
   </ul>
 </nav>
+
+<!-- Stamp Rally floating corner badge -->
+<a href="#stamp-rally" class="sr-corner-badge" aria-label="Collect stamps and win prizes">
+  <span class="cb-icon">🎯</span>
+  <span>Collect Stamps &amp; Win!</span>
+</a>
 
 <!-- ══════════ HERO ══════════ -->
 <section id="hero">

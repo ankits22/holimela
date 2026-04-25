@@ -54,7 +54,7 @@ index.html in this folder is the static single page website for this Holi festiv
 ## what do I need
 1. Update index.html to add the functional and non functional requirements listed in, "Functional Requirements"<FunctionalRequirements> and "Non Functional Requirements" <NonFunctionalRequirements> section.
 
-remove the button, "print QR Codes for vendors(organizers only)" from the index.html website. I dont want to show this to the visitors or users of this website. Instead create a new page where we have QR codes for vendors and generate the QR codes with the website domain is https://louisvilleholi.com instead of localhost. 
+remove the button, "print QR Codes for vendors(organizers only)" from the index.html website,   I dont want to show this button to the visitors or users of this website. Instead create a new HTML file in this folder with a web page where we have QR codes for vendors and generate the QR codes with the website domain is https://louisvilleholi.com instead of localhost. 
 
 
 I have 20 years of experience in software development and working in fortune 40 company as a principal architect and engineer leading a large team for building multi cloud data streaming and data integration platform. I want to do some university eduation to further my career and setup myself for success as I move to middle management to senior leadership roles and also 
@@ -72,3 +72,103 @@ Happy collections, Category - Clothing & Accesories, ShortName - HC
 Save Soil, Category - Public Awareness, logo - savesoil.png
 Laxmi Management, Category - Financial Services, shortName - LM
 
+Update the, "Event Schedule" with the below events thier timing and participants
+1. Introduction:                   
+2. Anthem (American/Indian)
+3. Hanuman Chalisa              12:10 - 12:20
+Participants -    
+   - Anvi
+   - Haritha
+   - Anika
+   - Aparna
+   - Himaja
+   - Amitesh
+   - Sahithi
+   - Mayan
+   - Manju
+   - Shreyanvi
+   - Rishik
+   - Harsha
+   - Hasika
+   - Vindhya
+4. Rang Leela Kids              12:20 - 12:30
+Participants -    
+   - Anantika
+   - Shivan
+   - Lakshmi
+   - Riddhima
+   - Shriya
+5. Noor Dance Academy           12:30 - 12:40
+   - Arnav
+   - Yuvraj
+   - Rudra
+   - Sinha
+   - Kriday
+   - Aadya
+   - Aavya
+   - Reyansh
+   - Hiyansh
+6. Global Groove                12:40 - 12:50
+   - Meenakshi
+   - Kruthin
+   - Sresta
+   - Snigdha
+   - Srikar
+   - Srichandra
+   - Karthikeya
+7. Rangila Rhythm               12:50 - 1:00
+   - Hasika
+   - Ishika
+   - Anvi
+   - Akira
+   - Maanvi
+   - Varsha
+   - Anika
+8. Etheral Essence              1:00 - 1:10
+   - Ria
+   - Evelyn
+   - Amy
+   - Sophia
+   - Shreya
+   - Nihara
+   - Tamilini
+   - Avika
+9. Masti Boys                   1:10 - 1:20
+   - Rishik
+   - Zidan
+   - Veer
+   - Deep
+   - Mayan
+   - Sameer
+   - Shiven
+10. Fluttering Butterflies      1:20 - 1:30
+    - Arhana
+    - Shanaya
+    - Asdhya
+    - Falguni
+    - Sahasra
+    - Ishani
+    - Anshika
+    - Zoya
+    - Tanvi
+    - Vritika
+    - Joanna. M
+    - Joanna. G
+11. Hindi School (LHP)          1:30 - 1:40
+12. Nachale Desi Groove         1:40 - 1:50
+13. Bhangra Workshop            1:50 - 2:00
+    - Kulwant Singh
+14. Natya Kendra                2:00 - 2:10
+    - Arya
+    - Manya
+    - Sree
+    - Saniya
+    - Shreya
+    - Mia
+    - Sarah
+    - Deesha
+15. Dance Dreamer               2:10 - 2:20
+    - Anokhi
+    - Navya
+    - Sara
+    - Adhya
