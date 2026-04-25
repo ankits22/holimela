@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Holi Mela 2026 – Vendor QR Codes (Organizers Only)</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet" />
+  <script src="qrcode.min.js"></script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: #f5f0ff;
+      color: #1a0a2e;
+      padding: 28px 20px;
+    }
+    header {
+      text-align: center;
+      margin-bottom: 28px;
+    }
+    header h1 {
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: #1a0a2e;
+      margin-bottom: 6px;
+    }
+    header h1 span { color: #e91e8c; }
+    header p {
+      color: #666;
+      font-size: 0.85rem;
+      line-height: 1.6;
+    }
+    .notice {
+      display: inline-block;
+      background: #fff3cd;
+      border: 1px solid #ffc107;
+      border-radius: 8px;
+      padding: 8px 18px;
+      font-size: 0.8rem;
+      color: #856404;
+      font-weight: 600;
+      margin-top: 10px;
+    }
+    .print-btn {
+      display: block;
+      margin: 0 auto 28px;
+      padding: 11px 32px;
+      background: #e91e8c;
+      color: #fff;
+      border: none;
+      border-radius: 50px;
+      font-size: 0.95rem;
+      font-weight: 700;
+      cursor: pointer;
+      font-family: inherit;
+      box-shadow: 0 4px 16px rgba(233,30,140,0.35);
+      transition: transform 0.15s, box-shadow 0.15s;
+    }
+    .print-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 22px rgba(233,30,140,0.5);
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 22px;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    .qr-card {
+      background: #fff;
+      border: 2px solid #e91e8c;
+      border-radius: 16px;
+      padding: 22px 18px;
+      text-align: center;
+      break-inside: avoid;
+      box-shadow: 0 4px 18px rgba(233,30,140,0.1);
+    }
+    .qr-logo-wrap {
+      height: 64px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 10px;
+    }
+    .qr-logo {
+      max-height: 64px;
+      max-width: 150px;
+      object-fit: contain;
+    }
+    .qr-logo-text {
+      font-size: 1.2rem;
+      font-weight: 800;
+      color: #e91e8c;
+      letter-spacing: 0.02em;
+    }
+    .qr-name {
+      font-size: 0.92rem;
+      font-weight: 700;
+      color: #1a0a2e;
+      margin-bottom: 14px;
+      min-height: 2.2em;
+      line-height: 1.3;
+    }
+    .qr-box {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 10px;
+    }
+    .qr-box canvas, .qr-box img { border-radius: 6px; }
+    .qr-url {
+      font-size: 0.52rem;
+      color: #bbb;
+      word-break: break-all;
+      margin-bottom: 6px;
+      line-height: 1.5;
+    }
+    .qr-instr {
+      font-size: 0.72rem;
+      color: #e91e8c;
+      font-weight: 600;
+    }
+
+    @media print {
+      body { background: #fff; padding: 10px; }
+      .print-btn, header .notice, .no-print { display: none !important; }
+      .grid { gap: 14px; }
+      .qr-card { box-shadow: none; border-width: 1.5px; padding: 16px 12px; }
+      header { margin-bottom: 18px; }
+    }
+
+    @media (max-width: 540px) {
+      .grid { grid-template-columns: repeat(2, 1fr); gap: 14px; }
+      .qr-card { padding: 14px 10px; }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>🎨 Holi Mela 2026 – <span>Stamp Rally QR Codes</span></h1>
+  <p>April 26, 2026 &nbsp;|&nbsp; louisvilleholi.com &nbsp;|&nbsp; Place the printed QR at your counter</p>
+  <div class="notice">🔒 For Organizers &amp; Vendors Only — Do Not Share Publicly</div>
+</header>
+
+<button class="print-btn" onclick="window.print()">🖨 Print All QR Codes</button>
+
+<div class="grid" id="qrGrid"></div>
+
+<script>
+  var BASE = 'https://louisvilleholi.com';
+
+  var VENDORS = [
+    { id: 'gj2',             token: 'mV7xK2pN9qR4tY8w', name: 'GJ 2 Indian Street Food',   logo: 'images/GJ2Logo.jpg' },
+    { id: 'clay-oven',       token: 'jH3nL6sB0cF5uW1e', name: 'Clay Oven',                  logo: 'images/clayovenlogo.jpg' },
+    { id: 'haus-kaphi',      token: 'dA4kG8yT2oE7iX9z', name: 'Haus Kaphi',                 logo: 'images/HausKaphiLogo.jpeg' },
+    { id: 'htky',            token: 'rP5vC1mJ6bQ3nZ0f', name: 'HTKY Dosa',                  logo: 'images/HTKY_Dosa.jpeg' },
+    { id: 'hindi-pathshala', token: 'lU2wS9hD4gK7tR8y', name: 'Louisville Hindi Pathshala', logo: 'images/HindiPaathshalalogo.jpeg' },
+    { id: 'jai-hind',        token: 'bT8nX3wQ6yF1mK4r', name: 'Jai Hind',                   logo: 'images/Jaihind.jpeg' },
+    { id: 'everest-momo',    token: 'eN6aM3xI0pV5cB1q', name: 'Everest Momo',               logo: 'images/EverestMomoLogo.jpeg' },
+    { id: 'rsm',             token: 'Xk9Lp2Wv7nY4cB8j', name: 'Russian School of Math',     logo: 'images/rsm.png' },
+    { id: 'rasa',            token: 'Qm3Hn6Zt1fJ8wD5e', name: 'Rasa & Co LLC',              logo: '' },
+    { id: 'purejoy',         token: 'Vc4Kg9Ex2sM7rN1a', name: 'PureJoy Jewelry',            logo: '' },
+    { id: 'kumon',           token: 'Yb7Tf0Ap5uI3qH6c', name: 'Kumon',                      logo: 'images/kumon.jpg' },
+    { id: 'taattva',         token: 'Rd2Ow8Gj4eL6xC9s', name: 'Taattva',                    logo: '' },
+    { id: 'mudra-wealth',    token: 'Pn5Sk1Ub7mF3vZ0t', name: 'Mudra Wealth Creation',      logo: '' },
+    { id: 'happy-col',       token: 'Wg6Ec4Jy0aQ2tX8n', name: 'Happy Collections',          logo: '' },
+    { id: 'save-soil',       token: 'Lf3Mn9Dh5iO7kR1p', name: 'Save Soil',                  logo: 'images/savesoil.png' },
+    { id: 'laxmi-mgmt',      token: 'Ax1Bv7Cw2Dy3Ez4q', name: 'Laxmi Management',           logo: '' },
+  ];
+
+  var grid = document.getElementById('qrGrid');
+
+  VENDORS.forEach(function(v) {
+    var url = BASE + '/?stamp=' + v.id + '&t=' + v.token;
+    var logoHtml = v.logo
+      ? '<img src="' + v.logo + '" alt="' + v.name + '" class="qr-logo" onerror="this.style.display=\'none\';this.nextElementSibling.style.display=\'block\'">' +
+        '<span class="qr-logo-text" style="display:none">' + v.name.substring(0,4).toUpperCase() + '</span>'
+      : '<span class="qr-logo-text">' + v.name.substring(0,4).toUpperCase() + '</span>';
+
+    var card = document.createElement('div');
+    card.className = 'qr-card';
+    card.innerHTML =
+      '<div class="qr-logo-wrap">' + logoHtml + '</div>' +
+      '<div class="qr-name">' + v.name + '</div>' +
+      '<div class="qr-box" id="qr-' + v.id + '"></div>' +
+      '<div class="qr-url">' + url + '</div>' +
+      '<div class="qr-instr">📱 Scan to collect your Holi Mela stamp!</div>';
+    grid.appendChild(card);
+
+    new QRCode(document.getElementById('qr-' + v.id), {
+      text: url,
+      width: 180,
+      height: 180,
+      colorDark: '#1a0a2e',
+      colorLight: '#ffffff',
+      correctLevel: QRCode.CorrectLevel.M
+    });
+  });
+</script>
+</body>
+</html>

@@ -8,6 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&family=Dancing+Script:wght@700&display=swap" rel="stylesheet" />
+  <script src="qrcode.min.js"></script>
   <style>
     /* ─── RESET & BASE ─────────────────────────────────────────────── */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -260,6 +261,15 @@
     }
     .tl-card h3 { color: #fff; font-size: 0.95rem; font-weight: 600; }
     .tl-card p { color: #aaa; font-size: 0.8rem; margin-top: 4px; }
+    .tl-participants {
+      display: flex; flex-wrap: wrap; gap: 5px; margin-top: 10px;
+    }
+    .tl-chip {
+      display: inline-block;
+      background: rgba(233,30,140,0.15); border: 1px solid rgba(233,30,140,0.35);
+      color: #f0c0df; font-size: 0.7rem; font-weight: 500;
+      padding: 2px 8px; border-radius: 20px; white-space: nowrap;
+    }
 
     /* ─── FOOD VENDORS ───────────────────────────────────────────────── */
     #vendors { background: linear-gradient(135deg, #fff9f0, #e8f4ff); }
@@ -424,6 +434,26 @@
     .rules-card ul li:last-child { border-bottom: none; }
     .rules-card.dos ul li::before { content: '✓'; color: var(--green); font-weight: 700; }
     .rules-card.donts ul li::before { content: '✗'; color: #ff4d6d; font-weight: 700; }
+
+    /* ─── VENUE MAP ─────────────────────────────────────────────────── */
+    #venue-map { background: linear-gradient(135deg, #1a0a2e 0%, #2d0d4e 100%); }
+    #venue-map .section-header h2 { color: #fff; }
+    #venue-map .section-header p  { color: rgba(255,255,255,0.65); }
+    .venue-map-img-wrap {
+      max-width: 1000px; margin: 0 auto;
+      border-radius: 20px; overflow: hidden;
+      box-shadow: 0 12px 48px rgba(123,45,139,0.5), 0 4px 16px rgba(0,0,0,0.4);
+      border: 3px solid rgba(233,30,140,0.4);
+    }
+    .venue-map-img-wrap img {
+      width: 100%; display: block;
+    }
+    .venue-map-note {
+      text-align: center; margin-top: 20px;
+      color: rgba(255,255,255,0.7); font-size: 0.9rem;
+    }
+    .venue-map-note a { color: var(--yellow); font-weight: 700; }
+    .venue-map-note a:hover { text-decoration: underline; }
 
     /* ─── MAP ────────────────────────────────────────────────────────── */
     #map-section { background: #f8f0ff; }
@@ -650,6 +680,111 @@
       100% { transform: scale(1); opacity: 1; }
     }
 
+    /* ─── STAMP RALLY ───────────────────────────────────────────── */
+    #stamp-rally { background: linear-gradient(160deg, #12052a 0%, #220840 50%, #12052a 100%); }
+    #stamp-rally .section-header h2 { color: #fff; }
+    #stamp-rally .section-header p  { color: rgba(255,255,255,0.65); }
+
+    .sr-scan-banner {
+      max-width: 600px; margin: 0 auto 28px;
+      padding: 14px 22px; border-radius: 14px;
+      background: rgba(6,214,160,0.15); border: 1px solid var(--green);
+      color: var(--green); font-size: 0.95rem; font-weight: 600; text-align: center;
+    }
+    .sr-counter-badge {
+      display: inline-flex; align-items: center; gap: 10px;
+      background: rgba(255,255,255,0.07); border: 2px solid rgba(255,210,63,0.45);
+      border-radius: 50px; padding: 12px 28px; color: #fff; font-size: 1rem; font-weight: 600;
+    }
+    .sr-count-num {
+      font-size: 2rem; font-weight: 900; line-height: 1;
+      background: var(--grad1); -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    }
+    .sr-count-of { color: rgba(255,255,255,0.4); }
+
+    .sr-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 14px; max-width: 660px; margin: 0 auto 34px;
+    }
+    .sr-tile {
+      background: rgba(255,255,255,0.05); border: 2px solid rgba(255,255,255,0.1);
+      border-radius: 16px; padding: 18px 10px 14px; text-align: center;
+      position: relative; transition: border-color 0.3s, background 0.3s;
+    }
+    .sr-tile.sr-stamped {
+      background: rgba(6,214,160,0.09); border-color: var(--green);
+    }
+    .sr-tile.sr-stamped::after {
+      content: '✓'; position: absolute; top: 8px; right: 10px;
+      color: var(--green); font-size: 1rem; font-weight: 900;
+    }
+    .sr-logo-wrap { width: 64px; height: 64px; margin: 0 auto 10px; }
+    .sr-logo {
+      width: 100%; height: 100%; border-radius: 10px;
+      object-fit: contain; background: rgba(255,255,255,0.12); padding: 6px;
+      filter: grayscale(0.4);
+    }
+    .sr-tile.sr-stamped .sr-logo { filter: none; }
+    .sr-emoji-fb {
+      width: 64px; height: 64px; border-radius: 10px;
+      background: rgba(255,255,255,0.12); font-size: 2rem;
+      align-items: center; justify-content: center;
+    }
+    .sr-name {
+      font-size: 0.72rem; font-weight: 600; line-height: 1.3;
+      color: rgba(255,255,255,0.7);
+    }
+    .sr-tile.sr-stamped .sr-name { color: #fff; }
+    .sr-time { font-size: 0.62rem; color: var(--green); margin-top: 4px; }
+
+    .sr-submit-area { max-width: 460px; margin: 0 auto; text-align: center; }
+    .sr-email-input {
+      width: 100%; padding: 14px 20px; border-radius: 50px;
+      border: 2px solid rgba(255,255,255,0.18);
+      background: rgba(255,255,255,0.07);
+      color: #fff; font-size: 1rem; font-family: 'Poppins', sans-serif;
+      outline: none; margin-bottom: 14px;
+      transition: border-color 0.2s;
+    }
+    .sr-email-input::placeholder { color: rgba(255,255,255,0.35); }
+    .sr-email-input:focus  { border-color: var(--yellow); }
+    .sr-email-input.sr-input-error { border-color: #ff4d6d; }
+
+    .sr-submit-btn {
+      width: 100%; padding: 16px; border: none; border-radius: 50px;
+      font-size: 1rem; font-weight: 700; cursor: pointer;
+      font-family: 'Poppins', sans-serif;
+      transition: transform 0.2s, opacity 0.2s;
+    }
+    .sr-submit-btn:not(:disabled) {
+      background: var(--grad1); color: #fff;
+      box-shadow: 0 6px 24px rgba(233,30,140,0.5);
+      animation: ticketGlow 2.5s ease-in-out infinite alternate;
+    }
+    .sr-submit-btn:not(:disabled):hover { transform: translateY(-2px); }
+    .sr-submit-btn:disabled {
+      background: rgba(255,255,255,0.08); color: rgba(255,255,255,0.3); cursor: not-allowed;
+    }
+
+    .sr-msg {
+      margin-top: 14px; padding: 12px 18px; border-radius: 12px; font-size: 0.88rem; font-weight: 500;
+    }
+    .sr-msg-success  { background: rgba(6,214,160,0.15);  border: 1px solid var(--green); color: var(--green); }
+    .sr-msg-error    { background: rgba(255,77,109,0.12);  border: 1px solid #ff4d6d;      color: #ff4d6d; }
+    .sr-msg-fallback { background: rgba(255,210,63,0.12);  border: 1px solid var(--yellow); color: var(--yellow); }
+
+    .sr-reset-btn {
+      background: transparent; border: 1px solid rgba(255,255,255,0.18);
+      color: rgba(255,255,255,0.4); padding: 8px 20px; border-radius: 50px;
+      font-size: 0.78rem; cursor: pointer; font-family: 'Poppins', sans-serif;
+      margin-top: 12px; transition: border-color 0.2s, color 0.2s;
+    }
+    .sr-reset-btn:hover { border-color: rgba(255,77,109,0.5); color: #ff4d6d; }
+    @media (max-width: 480px) {
+      .sr-grid { grid-template-columns: repeat(2, 1fr); max-width: 360px; }
+      .sr-counter-badge { padding: 10px 18px; font-size: 0.9rem; }
+    }
+
     /* ─── PARKING SECTION ───────────────────────────────────────── */
     #parking { background: linear-gradient(135deg, #f0fff4, #e8f4ff); }
     .parking-inner {
@@ -683,8 +818,11 @@
     <li><a href="#about">About</a></li>
     <li><a href="#schedule">Schedule</a></li>
     <li><a href="#vendors">Food</a></li>
+    <li><a href="#stamp-rally">🎯 Stamp Rally</a></li>
+    <li><a href="#stalls">Stalls</a></li>
     <li><a href="#gallery">Gallery</a></li>
     <li><a href="#map-section">Event Location</a></li>
+    <li><a href="#venue-map">Venue Map</a></li>
     <li><a href="#contact">Contact</a></li>
     <li><a href="https://events.sulekha.com/holi-mela-2026_event-in_louisville-ky_398906" target="_blank" rel="noopener" class="btn-ticket-nav">🎟 Buy Tickets</a></li>
   </ul>
@@ -714,6 +852,50 @@
   <div class="scroll-arrow" onclick="document.getElementById('about').scrollIntoView({behavior:'smooth'})">⌄</div>
 </section>
 
+<!-- ══════════ STAMP RALLY ══════════ -->
+<section id="stamp-rally">
+  <div class="section-header">
+    <h2>🎯 Stamp <span class="accent">Rally</span></h2>
+    <p>Visit every vendor counter, scan their QR code &amp; collect all 16 stamps to enter the lucky draw!</p>
+    <div class="divider"></div>
+  </div>
+
+  <!-- Banner shown after a QR scan -->
+  <div class="sr-scan-banner" id="srScanBanner" style="display:none;"></div>
+
+  <!-- Private / Incognito mode warning -->
+  <div id="srStorageWarn" style="display:none;max-width:600px;margin:0 auto 16px;padding:12px 18px;border-radius:12px;background:rgba(255,210,63,0.1);border:1px solid rgba(255,210,63,0.5);color:var(--yellow);font-size:0.83rem;text-align:center;line-height:1.6;">
+    ⚠️ Your browser appears to be in <strong>Private / Incognito mode</strong>. Stamps may not save between QR scans. Please switch to regular browsing mode so your stamps are saved.
+  </div>
+
+  <!-- Counter -->
+  <div style="text-align:center;margin-bottom:28px;">
+    <div class="sr-counter-badge">
+      <span>Stamps collected:</span>
+      <span class="sr-count-num" id="srCountNum">0</span>
+      <span class="sr-count-of">/ 16</span>
+      <span id="srCountEmoji">🎯</span>
+    </div>
+  </div>
+
+  <!-- Vendor stamp tiles (populated by JS) -->
+  <div class="sr-grid" id="srGrid"></div>
+
+  <!-- Submit area -->
+  <div class="sr-submit-area">
+    <input type="email" id="srEmail" class="sr-email-input"
+           placeholder="Enter your email to enter lucky draw"
+           autocomplete="email" inputmode="email" />
+    <button id="srSubmitBtn" class="sr-submit-btn" disabled>
+      🎯 Collect all 6 stamps to unlock
+    </button>
+    <div class="sr-msg" id="srMsg" style="display:none;"></div>
+    <br />
+    <button class="sr-reset-btn" onclick="srReset()">🗑 Reset all stamps</button>
+  </div>
+
+</section>
+
 <!-- ══════════ SPONSORS ══════════ -->
 <section id="sponsors" style="background:#fff;padding:50px 5%;">
   <div class="section-header" style="margin-bottom:36px;">
@@ -739,6 +921,12 @@
         <img src="images/HindiPaathshalalogo.jpeg" alt="Louisville Hindi Pathshala" style="height:70px;width:auto;object-fit:contain;display:block;" />
       </div>
       <p style="margin-top:10px;font-size:0.8rem;font-weight:600;color:#888;">Community Sponsor</p>
+    </div>
+    <div style="text-align:center;">
+      <div style="background:#fff;border:2px solid #f0e6ff;border-radius:16px;padding:20px 32px;box-shadow:0 4px 20px rgba(123,45,139,0.08);transition:transform 0.3s;" onmouseover="this.style.transform='translateY(-4px)'" onmouseout="this.style.transform='translateY(0)'">
+        <img src="images/JEFFWYLER.jpeg" alt="Jeff Wyler Louisville" style="height:70px;width:auto;object-fit:contain;display:block;" />
+      </div>
+      <p style="margin-top:10px;font-size:0.8rem;font-weight:600;color:#888;">Gold Sponsor</p>
     </div>
   </div>
 </section>
@@ -808,32 +996,141 @@
       <div class="tl-time">12:00 PM</div>
       <div class="tl-dot"></div>
       <div class="tl-card">
-        <h3>🎉 Opening Ceremony</h3>
+        <h3>🎉 Introduction</h3>
         <p>Official welcome and inauguration of Holi Mela 2026</p>
       </div>
     </div>
     <div class="tl-item">
-      <div class="tl-time">12:15 PM</div>
+      <div class="tl-time">12:05 PM</div>
       <div class="tl-dot"></div>
       <div class="tl-card">
-        <h3>🏛️ Chief Guest Address</h3>
-        <p>Louisville Mayor Craig Greenberg joins as honored guest</p>
+        <h3>🎵 National Anthems</h3>
+        <p>American &amp; Indian National Anthems</p>
       </div>
     </div>
     <div class="tl-item">
-      <div class="tl-time">1:00 PM</div>
+      <div class="tl-time">12:10 – 12:20</div>
       <div class="tl-dot"></div>
       <div class="tl-card">
-        <h3>🏆 Prize Distribution</h3>
-        <p>Recognizing community leaders and outstanding achievements</p>
+        <h3>🙏 Hanuman Chalisa</h3>
+        <div class="tl-participants">
+          <span class="tl-chip">Anvi</span><span class="tl-chip">Haritha</span><span class="tl-chip">Anika</span><span class="tl-chip">Aparna</span><span class="tl-chip">Himaja</span><span class="tl-chip">Amitesh</span><span class="tl-chip">Sahithi</span><span class="tl-chip">Mayan</span><span class="tl-chip">Manju</span><span class="tl-chip">Shreyanvi</span><span class="tl-chip">Rishik</span><span class="tl-chip">Harsha</span><span class="tl-chip">Hasika</span><span class="tl-chip">Vindhya</span>
+        </div>
       </div>
     </div>
     <div class="tl-item">
-      <div class="tl-time">1:15 PM</div>
+      <div class="tl-time">12:20 – 12:30</div>
       <div class="tl-dot"></div>
       <div class="tl-card">
-        <h3>💃 Stage Performances</h3>
-        <p>Music, dance, and cultural performances for all to enjoy</p>
+        <h3>💃 Rang Leela Kids</h3>
+        <div class="tl-participants">
+          <span class="tl-chip">Anantika</span><span class="tl-chip">Shivan</span><span class="tl-chip">Lakshmi</span><span class="tl-chip">Riddhima</span><span class="tl-chip">Shriya</span>
+        </div>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-time">12:30 – 12:40</div>
+      <div class="tl-dot"></div>
+      <div class="tl-card">
+        <h3>🕺 Noor Dance Academy</h3>
+        <div class="tl-participants">
+          <span class="tl-chip">Arnav</span><span class="tl-chip">Yuvraj</span><span class="tl-chip">Rudra</span><span class="tl-chip">Sinha</span><span class="tl-chip">Kriday</span><span class="tl-chip">Aadya</span><span class="tl-chip">Aavya</span><span class="tl-chip">Reyansh</span><span class="tl-chip">Hiyansh</span>
+        </div>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-time">12:40 – 12:50</div>
+      <div class="tl-dot"></div>
+      <div class="tl-card">
+        <h3>🌍 Global Groove</h3>
+        <div class="tl-participants">
+          <span class="tl-chip">Meenakshi</span><span class="tl-chip">Kruthin</span><span class="tl-chip">Sresta</span><span class="tl-chip">Snigdha</span><span class="tl-chip">Srikar</span><span class="tl-chip">Srichandra</span><span class="tl-chip">Karthikeya</span>
+        </div>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-time">12:50 – 1:00</div>
+      <div class="tl-dot"></div>
+      <div class="tl-card">
+        <h3>🎶 Rangila Rhythm</h3>
+        <div class="tl-participants">
+          <span class="tl-chip">Hasika</span><span class="tl-chip">Ishika</span><span class="tl-chip">Anvi</span><span class="tl-chip">Akira</span><span class="tl-chip">Maanvi</span><span class="tl-chip">Varsha</span><span class="tl-chip">Anika</span>
+        </div>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-time">1:00 – 1:10</div>
+      <div class="tl-dot"></div>
+      <div class="tl-card">
+        <h3>✨ Ethereal Essence</h3>
+        <div class="tl-participants">
+          <span class="tl-chip">Ria</span><span class="tl-chip">Evelyn</span><span class="tl-chip">Amy</span><span class="tl-chip">Sophia</span><span class="tl-chip">Shreya</span><span class="tl-chip">Nihara</span><span class="tl-chip">Tamilini</span><span class="tl-chip">Avika</span>
+        </div>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-time">1:10 – 1:20</div>
+      <div class="tl-dot"></div>
+      <div class="tl-card">
+        <h3>🔥 Masti Boys</h3>
+        <div class="tl-participants">
+          <span class="tl-chip">Rishik</span><span class="tl-chip">Zidan</span><span class="tl-chip">Veer</span><span class="tl-chip">Deep</span><span class="tl-chip">Mayan</span><span class="tl-chip">Sameer</span><span class="tl-chip">Shiven</span>
+        </div>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-time">1:20 – 1:30</div>
+      <div class="tl-dot"></div>
+      <div class="tl-card">
+        <h3>🦋 Fluttering Butterflies</h3>
+        <div class="tl-participants">
+          <span class="tl-chip">Arhana</span><span class="tl-chip">Shanaya</span><span class="tl-chip">Asdhya</span><span class="tl-chip">Falguni</span><span class="tl-chip">Sahasra</span><span class="tl-chip">Ishani</span><span class="tl-chip">Anshika</span><span class="tl-chip">Zoya</span><span class="tl-chip">Tanvi</span><span class="tl-chip">Vritika</span><span class="tl-chip">Joanna M.</span><span class="tl-chip">Joanna G.</span>
+        </div>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-time">1:30 – 1:40</div>
+      <div class="tl-dot"></div>
+      <div class="tl-card">
+        <h3>🏫 Hindi School (LHP)</h3>
+        <p>Louisville Hindi Paathshaala student performance</p>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-time">1:40 – 1:50</div>
+      <div class="tl-dot"></div>
+      <div class="tl-card">
+        <h3>💃 Nachale Desi Groove</h3>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-time">1:50 – 2:00</div>
+      <div class="tl-dot"></div>
+      <div class="tl-card">
+        <h3>🥁 Bhangra Workshop</h3>
+        <div class="tl-participants">
+          <span class="tl-chip">Kulwant Singh</span>
+        </div>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-time">2:00 – 2:10</div>
+      <div class="tl-dot"></div>
+      <div class="tl-card">
+        <h3>🎭 Natya Kendra</h3>
+        <div class="tl-participants">
+          <span class="tl-chip">Arya</span><span class="tl-chip">Manya</span><span class="tl-chip">Sree</span><span class="tl-chip">Saniya</span><span class="tl-chip">Shreya</span><span class="tl-chip">Mia</span><span class="tl-chip">Sarah</span><span class="tl-chip">Deesha</span>
+        </div>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-time">2:10 – 2:20</div>
+      <div class="tl-dot"></div>
+      <div class="tl-card">
+        <h3>🌟 Dance Dreamer</h3>
+        <div class="tl-participants">
+          <span class="tl-chip">Anokhi</span><span class="tl-chip">Navya</span><span class="tl-chip">Sara</span><span class="tl-chip">Adhya</span>
+        </div>
       </div>
     </div>
     <div class="tl-item">
@@ -977,10 +1274,10 @@
     </div>
     <div class="vendor-card">
       <div class="vendor-icon" style="padding:10px;background:#fff;">
-        <img src="images/htky_logo.png" alt="Hindu Temple of Kentucky Logo" style="height:70px;width:100%;object-fit:contain;" />
+        <img src="images/HTKY_Dosa.jpeg" alt="HTKY Dosa Stall Logo" style="height:70px;width:100%;object-fit:contain;" />
       </div>
       <div class="vendor-body">
-        <h3>Food by Hindu Temple</h3>
+        <h3>HTKY Dosa</h3>
         <p>Wholesome, delicious vegetarian food lovingly prepared and served by the Hindu Temple community. Enjoy authentic home-style Indian cooking made with devotion.</p>
         <ul style="margin:10px 0 12px;padding-left:18px;color:#555;font-size:0.82rem;line-height:1.9;">
           <li>Idli</li>
@@ -1004,6 +1301,19 @@
     </div>
     <div class="vendor-card">
       <div class="vendor-icon" style="padding:10px;background:#fff;">
+        <img src="images/Jaihind.jpeg" alt="Jai Hind International Grocery Logo" style="height:70px;width:100%;object-fit:contain;" />
+      </div>
+      <div class="vendor-body">
+        <h3>Jai Hind</h3>
+        <p>Pure Taste of India. Refreshing and freshly pressed sugarcane juice — the perfect festival drink!</p>
+        <ul style="margin:10px 0 12px;padding-left:18px;color:#555;font-size:0.82rem;line-height:1.9;">
+          <li>Sugarcane Juice</li>
+        </ul>
+        <span class="vendor-tag">🌿 Fresh &amp; Natural</span>
+      </div>
+    </div>
+    <div class="vendor-card">
+      <div class="vendor-icon" style="padding:10px;background:#fff;">
         <img src="images/EverestMomoLogo.jpeg" alt="Everest Momo Logo" style="height:70px;width:100%;object-fit:contain;" />
       </div>
       <div class="vendor-body">
@@ -1018,6 +1328,117 @@
         <span class="vendor-tag">🏔️ Himalayan Flavors</span>
       </div>
     </div>
+  </div>
+</section>
+
+<!-- ══════════ STALLS & BOOTHS ══════════ -->
+<section id="stalls" style="background:linear-gradient(135deg,#f0e6ff,#fff9f0);">
+  <div class="section-header">
+    <h2>Stalls &amp; <span class="accent">Booths</span></h2>
+    <p>Explore our vibrant marketplace — education, jewelry, clothing, finance and more!</p>
+    <div class="divider"></div>
+  </div>
+  <div class="vendors-grid">
+
+    <div class="vendor-card">
+      <div class="vendor-icon" style="padding:10px;background:#fff;">
+        <img src="images/rsm.png" alt="Russian School of Mathematics Logo" style="height:70px;width:100%;object-fit:contain;" />
+      </div>
+      <div class="vendor-body">
+        <h3>Russian School of Mathematics</h3>
+        <p>A world-class after-school math program developing critical thinking and problem-solving skills in students of all ages.</p>
+        <span class="vendor-tag">📐 Student Education</span>
+      </div>
+    </div>
+
+    <div class="vendor-card">
+      <div class="vendor-icon" style="background:linear-gradient(135deg,#f8f0ff,#fff0f8);display:flex;align-items:center;justify-content:center;">
+        <span style="font-size:1.6rem;font-weight:900;color:#7b2d8b;letter-spacing:-1px;">RASA</span>
+      </div>
+      <div class="vendor-body">
+        <h3>Rasa &amp; Co LLC</h3>
+        <p>Curated collection of clothing and accessories celebrating South Asian aesthetics and contemporary fashion.</p>
+        <span class="vendor-tag">👗 Clothing &amp; Accessories</span>
+      </div>
+    </div>
+
+    <div class="vendor-card">
+      <div class="vendor-icon" style="background:linear-gradient(135deg,#f8f0ff,#fff0f8);display:flex;align-items:center;justify-content:center;">
+        <span style="font-size:1.3rem;font-weight:900;color:#e91e8c;letter-spacing:-1px;">PureJoy</span>
+      </div>
+      <div class="vendor-body">
+        <h3>PureJoy Jewelry</h3>
+        <p>Handcrafted jewelry pieces that bring joy — from everyday wear to statement festival looks.</p>
+        <span class="vendor-tag">💎 Clothing &amp; Accessories</span>
+      </div>
+    </div>
+
+    <div class="vendor-card">
+      <div class="vendor-icon" style="padding:10px;background:#fff;">
+        <img src="images/kumon.jpg" alt="Kumon Logo" style="height:70px;width:100%;object-fit:contain;" />
+      </div>
+      <div class="vendor-body">
+        <h3>Kumon</h3>
+        <p>Kumon of Springhurst, Jeffersontown &amp; Clarksville — a self-learning program that builds math and reading skills in students.</p>
+        <span class="vendor-tag">📚 Student Education</span>
+      </div>
+    </div>
+
+    <div class="vendor-card">
+      <div class="vendor-icon" style="background:linear-gradient(135deg,#f8f0ff,#fff0f8);display:flex;align-items:center;justify-content:center;">
+        <span style="font-size:1.4rem;font-weight:900;color:#ff6b35;letter-spacing:-1px;">Taattva</span>
+      </div>
+      <div class="vendor-body">
+        <h3>Taattva</h3>
+        <p>Elegant clothing and accessories rooted in tradition, crafted for the modern festival-goer.</p>
+        <span class="vendor-tag">👗 Clothing &amp; Accessories</span>
+      </div>
+    </div>
+
+    <div class="vendor-card">
+      <div class="vendor-icon" style="background:linear-gradient(135deg,#f8f0ff,#fff0f8);display:flex;align-items:center;justify-content:center;">
+        <span style="font-size:1.6rem;font-weight:900;color:#00b4d8;letter-spacing:-1px;">MW</span>
+      </div>
+      <div class="vendor-body">
+        <h3>Mudra Wealth Creation</h3>
+        <p>Expert financial planning services to help you grow and protect your wealth with confidence.</p>
+        <span class="vendor-tag">💰 Financial Planning</span>
+      </div>
+    </div>
+
+    <div class="vendor-card">
+      <div class="vendor-icon" style="background:linear-gradient(135deg,#f8f0ff,#fff0f8);display:flex;align-items:center;justify-content:center;">
+        <span style="font-size:1.6rem;font-weight:900;color:#06d6a0;letter-spacing:-1px;">HC</span>
+      </div>
+      <div class="vendor-body">
+        <h3>Happy Collections</h3>
+        <p>A cheerful collection of clothing and accessories for every mood and every occasion at the festival.</p>
+        <span class="vendor-tag">👗 Clothing &amp; Accessories</span>
+      </div>
+    </div>
+
+    <div class="vendor-card">
+      <div class="vendor-icon" style="padding:10px;background:#fff;">
+        <img src="images/savesoil.png" alt="Save Soil Logo" style="height:70px;width:100%;object-fit:contain;" />
+      </div>
+      <div class="vendor-body">
+        <h3>Save Soil</h3>
+        <p>A global movement to reverse soil degradation and bring awareness about the importance of healthy soil for our future.</p>
+        <span class="vendor-tag">🌱 Public Awareness</span>
+      </div>
+    </div>
+
+    <div class="vendor-card">
+      <div class="vendor-icon" style="background:linear-gradient(135deg,#f8f0ff,#fff0f8);display:flex;align-items:center;justify-content:center;">
+        <span style="font-size:1.6rem;font-weight:900;color:#7b2d8b;letter-spacing:-1px;">LM</span>
+      </div>
+      <div class="vendor-body">
+        <h3>Laxmi Management</h3>
+        <p>Professional financial services tailored for the South Asian community — investments, insurance, and wealth advisory.</p>
+        <span class="vendor-tag">💼 Financial Services</span>
+      </div>
+    </div>
+
   </div>
 </section>
 
@@ -1134,6 +1555,22 @@
     </iframe>
   </div>
   <p class="map-address">📍 4213 Accomack Dr, Louisville, KY 40241 &nbsp;|&nbsp; <a href="https://maps.google.com/?q=4213+Accomack+Dr,+Louisville,+KY+40241" target="_blank" rel="noopener" style="color:var(--purple); font-weight:700;">Get Directions →</a></p>
+</section>
+
+<!-- ══════════ VENUE MAP ══════════ -->
+<section id="venue-map">
+  <div class="section-header">
+    <h2>🗺️ Venue <span class="accent">Map</span></h2>
+    <p>Find your way around the festival grounds</p>
+    <div class="divider"></div>
+  </div>
+  <div class="venue-map-img-wrap">
+    <img src="images/VenueMap.jpeg" alt="Holi Mela 2026 Venue Map – Festival Ground Layout" />
+  </div>
+  <p class="venue-map-note">
+    📍 4213 Accomack Dr, Louisville, KY 40241 &nbsp;|&nbsp;
+    <a href="https://maps.google.com/?q=4213+Accomack+Dr,+Louisville,+KY+40241" target="_blank" rel="noopener">Get Directions →</a>
+  </p>
 </section>
 
 <!-- ══════════ TICKETS ══════════ -->
@@ -1573,6 +2010,264 @@
       setTimeout(() => drip.remove(), parseFloat(dur)*1000+400);
     }
   }
+
+  /* ─── STAMP RALLY ─────────────────────────────────────────────────── */
+  /*
+   * Google Apps Script setup:
+   * 1. Open Google Sheets → Extensions → Apps Script
+   * 2. Paste the following and deploy as Web App (Execute as: Me, Access: Anyone):
+   *
+   *   function doGet(e) {
+   *     var sheet = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();
+   *     sheet.appendRow([
+   *       e.parameter.email,
+   *       e.parameter.submittedAt,
+   *       e.parameter.stamps
+   *     ]);
+   *     return ContentService
+   *       .createTextOutput(JSON.stringify({status:'ok'}))
+   *       .setMimeType(ContentService.MimeType.JSON);
+   *   }
+   *
+   * 3. Copy the deployed Web App URL and replace SR_SUBMIT_URL below.
+   */
+  const VENDORS = [
+    { id: 'gj2',             token: 'mV7xK2pN9qR4tY8w', name: 'GJ 2 Indian Street Food',   logo: 'images/GJ2Logo.jpg',             emoji: '🌶️' },
+    { id: 'clay-oven',       token: 'jH3nL6sB0cF5uW1e', name: 'Clay Oven',                  logo: 'images/clayovenlogo.jpg',         emoji: '🍛' },
+    { id: 'haus-kaphi',      token: 'dA4kG8yT2oE7iX9z', name: 'Haus Kaphi',                 logo: 'images/HausKaphiLogo.jpeg',       emoji: '☕' },
+    { id: 'htky',            token: 'rP5vC1mJ6bQ3nZ0f', name: 'HTKY Dosa',                   logo: 'images/HTKY_Dosa.jpeg',           emoji: '🫓' },
+    { id: 'hindi-pathshala', token: 'lU2wS9hD4gK7tR8y', name: 'Louisville Hindi Pathshala', logo: 'images/HindiPaathshalalogo.jpeg', emoji: '💧' },
+    { id: 'jai-hind',        token: 'bT8nX3wQ6yF1mK4r', name: 'Jai Hind',                   logo: 'images/Jaihind.jpeg',             emoji: '🌿' },
+    { id: 'everest-momo',    token: 'eN6aM3xI0pV5cB1q', name: 'Everest Momo',               logo: 'images/EverestMomoLogo.jpeg',     emoji: '🏔️' },
+    { id: 'rsm',             token: 'Xk9Lp2Wv7nY4cB8j', name: 'Russian School of Math',     logo: 'images/rsm.png',                  emoji: '📐' },
+    { id: 'rasa',            token: 'Qm3Hn6Zt1fJ8wD5e', name: 'Rasa & Co LLC',              logo: '',                                emoji: 'RASA' },
+    { id: 'purejoy',         token: 'Vc4Kg9Ex2sM7rN1a', name: 'PureJoy Jewelry',            logo: '',                                emoji: 'PureJoy' },
+    { id: 'kumon',           token: 'Yb7Tf0Ap5uI3qH6c', name: 'Kumon',                      logo: 'images/kumon.jpg',                emoji: '📚' },
+    { id: 'taattva',         token: 'Rd2Ow8Gj4eL6xC9s', name: 'Taattva',                    logo: '',                                emoji: 'Taattva' },
+    { id: 'mudra-wealth',    token: 'Pn5Sk1Ub7mF3vZ0t', name: 'Mudra Wealth Creation',      logo: '',                                emoji: 'MW' },
+    { id: 'happy-col',       token: 'Wg6Ec4Jy0aQ2tX8n', name: 'Happy Collections',          logo: '',                                emoji: 'HC' },
+    { id: 'save-soil',       token: 'Lf3Mn9Dh5iO7kR1p', name: 'Save Soil',                  logo: 'images/savesoil.png',             emoji: '🌱' },
+    { id: 'laxmi-mgmt',      token: 'Ax1Bv7Cw2Dy3Ez4q', name: 'Laxmi Management',           logo: '',                                emoji: 'LM' },
+  ];
+  const SR_TOTAL      = VENDORS.length;
+  const SR_KEY        = 'holiStampRally2026';
+  const SR_SUBMIT_URL = 'https://script.google.com/macros/s/AKfycbym6HjJL1pfck2q__Bwwi_mAO4j420nWSHorxpcf4Ba633ZIutGp-SFxBEsZ70RglmM/exec';
+
+  var _srMem = null; // in-memory fallback when localStorage is unavailable (private browsing)
+
+  function srGetData() {
+    if (_srMem !== null) return _srMem;
+    try {
+      var raw = localStorage.getItem(SR_KEY);
+      _srMem = raw ? JSON.parse(raw) : { stamps: {}, email: '', submitted: false };
+      return _srMem;
+    } catch(e) {
+      _srMem = { stamps: {}, email: '', submitted: false };
+      return _srMem;
+    }
+  }
+  function srSave(data) {
+    _srMem = data; // always persist in memory first
+    try { localStorage.setItem(SR_KEY, JSON.stringify(data)); } catch(e) {}
+  }
+
+  function srRender() {
+    var data = srGetData();
+    var grid = document.getElementById('srGrid');
+    if (!grid) return;
+    grid.innerHTML = '';
+    VENDORS.forEach(function(v) {
+      var stamped = !!data.stamps[v.id];
+      var tile = document.createElement('div');
+      tile.className = 'sr-tile' + (stamped ? ' sr-stamped' : '');
+      var timeHtml = '';
+      if (stamped) {
+        var t = new Date(data.stamps[v.id]);
+        timeHtml = '<div class="sr-time">' + t.toLocaleTimeString([], {hour:'2-digit',minute:'2-digit'}) + '</div>';
+      }
+      var logoHtml = v.logo
+        ? '<img src="' + v.logo + '" alt="' + v.name + '" class="sr-logo"' +
+          ' onerror="this.style.display=\'none\';var fb=this.parentNode.querySelector(\'.sr-emoji-fb\');if(fb)fb.style.display=\'flex\'">' +
+          '<div class="sr-emoji-fb" style="display:none">' + v.emoji + '</div>'
+        : '<div class="sr-emoji-fb" style="display:flex;font-size:' +
+          (v.emoji.length <= 2 ? '1.3rem' : v.emoji.length <= 4 ? '1rem' : '0.75rem') +
+          ';font-weight:800;color:#fff;text-align:center;line-height:1.2;padding:4px;">' + v.emoji + '</div>';
+      tile.innerHTML =
+        '<div class="sr-logo-wrap">' + logoHtml + '</div>' +
+        '<div class="sr-name">' + v.name + '</div>' +
+        timeHtml;
+      grid.appendChild(tile);
+    });
+    var count = Object.keys(data.stamps).length;
+    var numEl = document.getElementById('srCountNum');
+    if (numEl) numEl.textContent = count;
+    var emojiEl = document.getElementById('srCountEmoji');
+    if (emojiEl) emojiEl.textContent = count === SR_TOTAL ? '🎉' : count >= Math.ceil(SR_TOTAL / 2) ? '🔥' : '🎯';
+    srUpdateBtn(data);
+  }
+
+  function srUpdateBtn(data) {
+    var count = Object.keys(data.stamps).length;
+    var emailInput = document.getElementById('srEmail');
+    var btn = document.getElementById('srSubmitBtn');
+    if (!btn || !emailInput) return;
+    if (!emailInput.value && data.email) emailInput.value = data.email;
+    var allDone    = count === SR_TOTAL;
+    var validEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailInput.value.trim());
+    if (data.submitted) {
+      btn.disabled = true; btn.textContent = '✅ Already Submitted';
+      srShowMsg('success', '🎉 You are already in the lucky draw! Good luck!'); return;
+    }
+    btn.disabled = !(allDone && validEmail);
+    btn.textContent = allDone
+      ? (validEmail ? '🎉 Submit & Enter Lucky Draw' : '✉️ Enter email to submit')
+      : '🎯 Collect all ' + SR_TOTAL + ' stamps to unlock';
+  }
+
+  function srAddStamp(vendorId) {
+    var data = srGetData();
+    if (!data.stamps[vendorId]) {
+      data.stamps[vendorId] = new Date().toISOString();
+      srSave(data);
+    }
+    srRender();
+  }
+
+  function srShowMsg(type, text) {
+    var el = document.getElementById('srMsg');
+    if (!el) return;
+    el.className = 'sr-msg sr-msg-' + type;
+    el.textContent = text;
+    el.style.display = 'block';
+  }
+
+  function srReset() {
+    if (!confirm('This will clear all your stamps and email. Continue?')) return;
+    _srMem = null;                       // clear in-memory cache first
+    localStorage.removeItem(SR_KEY);     // then clear persistent storage
+    var emailInput = document.getElementById('srEmail');
+    if (emailInput) emailInput.value = '';
+    var msgEl = document.getElementById('srMsg');
+    if (msgEl) { msgEl.style.display = 'none'; }
+    srRender();                          // srGetData() now reads fresh empty state
+  }
+
+  async function srSubmit() {
+    var btn = document.getElementById('srSubmitBtn');
+    var emailInput = document.getElementById('srEmail');
+    if (!btn || !emailInput) return; // guard against missing DOM elements
+    try {
+      var data = srGetData();
+      var email = emailInput.value.trim();
+      if (Object.keys(data.stamps).length < SR_TOTAL) {
+        srShowMsg('error', 'Please collect all ' + SR_TOTAL + ' stamps first!'); return;
+      }
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+        emailInput.classList.add('sr-input-error');
+        srShowMsg('error', 'Please enter a valid email address.'); return;
+      }
+      emailInput.classList.remove('sr-input-error');
+      data.email = email; srSave(data);
+      btn.disabled = true; btn.textContent = '⏳ Submitting…';
+      var stampNames = VENDORS.map(function(v) { return v.name; }).join(', ');
+      var submitUrl = SR_SUBMIT_URL
+        + '?email='       + encodeURIComponent(email)
+        + '&submittedAt=' + encodeURIComponent(new Date().toISOString())
+        + '&stamps='      + encodeURIComponent(stampNames);
+      try {
+        if (SR_SUBMIT_URL === 'YOUR_GOOGLE_APPS_SCRIPT_URL_HERE') throw new Error('not-configured');
+        // 10-second timeout — bad WiFi at events is common
+        var timeoutHandle;
+        var timeout = new Promise(function(_, reject) {
+          timeoutHandle = setTimeout(function() { reject(new Error('timeout')); }, 10000);
+        });
+        await Promise.race([
+          fetch(submitUrl, { method: 'GET', mode: 'no-cors' }),
+          timeout
+        ]);
+        clearTimeout(timeoutHandle); // prevent the timeout rejecting after success
+        data.submitted = true; srSave(data);
+        btn.textContent = '✅ Submitted!';
+        srShowMsg('success', '🎉 You are entered in the lucky draw! We will contact you at ' + email + ' if you win. Enjoy the Holi Mela!');
+      } catch(e) {
+        btn.disabled = false; btn.textContent = '🎉 Submit & Enter Lucky Draw';
+        var msg = e.message === 'timeout'
+          ? '⏱ Request timed out (slow network). Please try again or walk to the Hindi Paathshala counter for manual entry.'
+          : '⚠️ Submission failed. Please walk to the Hindi Paathshala counter and show this screen to a committee representative — they will enter you in the lucky draw manually.';
+        srShowMsg('fallback', msg);
+      }
+    } catch(outerErr) {
+      // catch any unexpected JS error so the button never stays stuck
+      if (btn) { btn.disabled = false; btn.textContent = '🎉 Submit & Enter Lucky Draw'; }
+      srShowMsg('fallback', '⚠️ Something went wrong. Please walk to the Hindi Paathshala counter for manual entry.');
+    }
+  }
+
+  /* ── Stamp Rally Init ── */
+  (function() {
+    // Detect localStorage unavailability (iOS Private Browsing, storage blocked)
+    try {
+      var _t = '__sr_test__';
+      localStorage.setItem(_t, '1');
+      localStorage.removeItem(_t);
+    } catch(e) {
+      var warn = document.getElementById('srStorageWarn');
+      if (warn) warn.style.display = 'block';
+    }
+
+    // URLSearchParams fallback for older Android browsers
+    function getParam(name) {
+      if (window.URLSearchParams) {
+        return new URLSearchParams(window.location.search).get(name);
+      }
+      var match = window.location.search.match(new RegExp('[?&]' + name + '=([^&]*)'));
+      return match ? decodeURIComponent(match[1]) : null;
+    }
+
+    var stampId = getParam('stamp');
+    var token   = getParam('t');
+    if (stampId && token) {
+      var vendor = VENDORS.find(function(v) { return v.id === stampId && v.token === token; });
+      if (vendor) {
+        var existingData = srGetData();
+        var isNew = !existingData.stamps[vendor.id];
+        srAddStamp(vendor.id);
+        var banner = document.getElementById('srScanBanner');
+        if (banner) {
+          banner.textContent = isNew
+            ? '✅ ' + vendor.name + ' stamp added! Visit more counters to collect all ' + SR_TOTAL + '.'
+            : '👋 You already have the ' + vendor.name + ' stamp!';
+          banner.style.display = 'block';
+        }
+        window.history.replaceState({}, document.title, window.location.pathname);
+        function goToStampRally() {
+          var sec = document.getElementById('stamp-rally');
+          if (!sec) return;
+          var top = sec.getBoundingClientRect().top + window.pageYOffset - 64;
+          window.scrollTo({ top: top, behavior: 'smooth' });
+        }
+        if (document.readyState === 'complete') {
+          setTimeout(goToStampRally, 150);
+        } else {
+          window.addEventListener('load', function() { setTimeout(goToStampRally, 150); });
+        }
+      }
+    }
+    srRender();
+    var emailInput = document.getElementById('srEmail');
+    if (emailInput) {
+      emailInput.addEventListener('input', function() {
+        emailInput.classList.remove('sr-input-error');
+        srUpdateBtn(srGetData());
+      });
+      emailInput.addEventListener('blur', function() {
+        var d = srGetData();
+        if (emailInput.value.trim()) { d.email = emailInput.value.trim(); srSave(d); }
+      });
+    }
+    var submitBtn = document.getElementById('srSubmitBtn');
+    if (submitBtn) submitBtn.addEventListener('click', srSubmit);
+  })();
 
   /* ── Active nav on scroll ── */
   const sections = document.querySelectorAll('section[id]');
