@@ -37,7 +37,7 @@
 
     /* ─── CONFETTI DOTS (decorative) ────────────────────────────────── */
     .dots {
-      position: absolute; inset: 0; overflow: hidden; pointer-events: none; z-index: 0;
+      position: absolute; top: 0; right: 0; bottom: 0; left: 0; overflow: hidden; pointer-events: none; z-index: 0;
     }
     .dots span {
       position: absolute; border-radius: 50%;
@@ -49,7 +49,7 @@
     nav {
       position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
       background: rgba(26, 10, 46, 0.92);
-      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px);
       padding: 0 5%;
       display: flex; align-items: center; justify-content: space-between;
       height: 64px;
@@ -96,7 +96,7 @@
       position: relative; display: flex; align-items: center; justify-content: center;
     }
     #hero::before {
-      content: ''; position: absolute; inset: 0;
+      content: ''; position: absolute; top: 0; right: 0; bottom: 0; left: 0;
       background: linear-gradient(to bottom, rgba(26,10,46,0.7) 0%, rgba(123,45,139,0.6) 50%, rgba(26,10,46,0.85) 100%);
     }
     .hero-content {
@@ -128,7 +128,7 @@
       background: rgba(255,210,63,0.2); border: 2px solid var(--yellow);
       color: var(--yellow); padding: 8px 24px; border-radius: 50px;
       font-size: 1rem; font-weight: 700; margin-bottom: 20px;
-      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px);
     }
     .hero-highlights {
       display: flex; flex-wrap: wrap; justify-content: center; gap: 12px;
@@ -137,7 +137,7 @@
     .hero-highlights .chip {
       background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.3);
       color: #fff; padding: 8px 18px; border-radius: 50px;
-      font-size: 0.85rem; backdrop-filter: blur(6px);
+      font-size: 0.85rem; -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px);
       display: flex; align-items: center; gap: 8px;
     }
     .hero-highlights .chip .icon { font-size: 1.1rem; }
@@ -184,7 +184,7 @@
     .btn-secondary {
       background: rgba(255,255,255,0.12); border: 2px solid #fff; color: #fff;
       padding: 14px 36px; border-radius: 50px; font-size: 1.1rem; font-weight: 600;
-      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px);
       transition: background 0.25s, transform 0.25s;
       display: inline-block;
     }
@@ -281,7 +281,7 @@
       flex: 1;
       background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.15);
       border-radius: 14px; padding: 16px 20px;
-      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px);
     }
     .tl-card h3 { color: #fff; font-size: 0.95rem; font-weight: 600; }
     .tl-card p { color: #aaa; font-size: 0.8rem; margin-top: 4px; }
@@ -340,7 +340,7 @@
     .chief-card {
       background: rgba(255,255,255,0.12); border: 2px solid rgba(255,255,255,0.25);
       border-radius: 24px; padding: 40px 30px;
-      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px);
       display: inline-flex; flex-direction: column; align-items: center; gap: 20px;
       max-width: 420px;
     }
@@ -378,7 +378,7 @@
     }
     .gallery-item::after {
       content: '🔍';
-      position: absolute; inset: 0;
+      position: absolute; top: 0; right: 0; bottom: 0; left: 0;
       background: rgba(123,45,139,0.5);
       display: flex; align-items: center; justify-content: center;
       font-size: 2rem; opacity: 0; transition: opacity 0.3s;
@@ -535,7 +535,7 @@
 
     /* ─── LIGHTBOX ───────────────────────────────────────────────────── */
     .lightbox {
-      display: none; position: fixed; inset: 0; z-index: 9999;
+      display: none; position: fixed; top: 0; right: 0; bottom: 0; left: 0; z-index: 9999;
       background: rgba(0,0,0,0.92); align-items: center; justify-content: center;
     }
     .lightbox.open { display: flex; }
@@ -583,7 +583,7 @@
 
     /* ─── BALLOON GAME ───────────────────────────────────────────── */
     .game-fab {
-      position: fixed; bottom: 28px; right: 28px; z-index: 500;
+      position: fixed; bottom: max(28px, calc(28px + env(safe-area-inset-bottom, 0px))); right: max(28px, calc(28px + env(safe-area-inset-right, 0px))); z-index: 500;
       background: var(--grad1); color: #fff; border: none; border-radius: 50px;
       padding: 14px 22px; font-size: 0.95rem; font-weight: 700; cursor: pointer;
       font-family: 'Poppins', sans-serif;
@@ -593,7 +593,7 @@
     }
     .game-fab:hover { transform: scale(1.08); }
     .game-overlay {
-      display: none; position: fixed; inset: 0; z-index: 2000;
+      display: none; position: fixed; top: 0; right: 0; bottom: 0; left: 0; z-index: 2000;
       background: rgba(10, 4, 20, 0.93); overflow: hidden;
     }
     .game-overlay.open { display: block; }
@@ -601,7 +601,7 @@
       position: absolute; top: 0; left: 0; right: 0;
       display: flex; align-items: center; justify-content: space-between;
       padding: 16px 24px; z-index: 10;
-      background: rgba(0,0,0,0.3); backdrop-filter: blur(6px);
+      background: rgba(0,0,0,0.3); -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px);
     }
     .game-title-text {
       color: #fff; font-weight: 700; font-size: 1rem;
@@ -1128,6 +1128,9 @@
       <div class="tl-card">
         <h3>🏫 Hindi School (LHP)</h3>
         <p>Louisville Hindi Paathshaala student performance</p>
+        <div class="tl-participants">
+          <span class="tl-chip">Shivani</span><span class="tl-chip">Dhruhi</span><span class="tl-chip">Shaun</span><span class="tl-chip">Kiran</span><span class="tl-chip">Avnindra</span><span class="tl-chip">Jayendra</span><span class="tl-chip">Arham</span>
+        </div>
       </div>
     </div>
     <div class="tl-item">
@@ -1135,6 +1138,9 @@
       <div class="tl-dot"></div>
       <div class="tl-card">
         <h3>💃 Nachale Desi Groove</h3>
+        <div class="tl-participants">
+          <span class="tl-chip">Adhya. D</span><span class="tl-chip">Susanne</span><span class="tl-chip">Terrence</span><span class="tl-chip">Violette</span><span class="tl-chip">River</span><span class="tl-chip">Adhya. K</span><span class="tl-chip">Arjun</span>
+        </div>
       </div>
     </div>
     <div class="tl-item">
@@ -1720,7 +1726,7 @@
     High school students — earn Beta Club volunteering hours at Holi Mela 2026!
     Thank you for your interest in volunteering with us.
   </p>
-  <div style="display:inline-block;background:rgba(255,255,255,0.15);border:2px solid rgba(255,255,255,0.3);border-radius:16px;padding:12px 28px;margin-bottom:24px;backdrop-filter:blur(6px);">
+  <div style="display:inline-block;background:rgba(255,255,255,0.15);border:2px solid rgba(255,255,255,0.3);border-radius:16px;padding:12px 28px;margin-bottom:24px;-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);">
     <span style="color:var(--yellow);font-weight:700;font-size:1rem;">🚫 Registrations are now closed.</span>
   </div>
   <br/>
@@ -1828,8 +1834,8 @@
     <div class="game-score-display">Popped: <span id="scoreCount">0</span></div>
     <button class="game-close-btn" onclick="closeGame()">✕</button>
   </div>
-  <div id="gameArena" style="position:absolute;inset:0;top:64px;"></div>
-  <div id="splashContainer" style="position:absolute;inset:0;pointer-events:none;overflow:hidden;"></div>
+  <div id="gameArena" style="position:absolute;top:64px;right:0;bottom:0;left:0;"></div>
+  <div id="splashContainer" style="position:absolute;top:0;right:0;bottom:0;left:0;pointer-events:none;overflow:hidden;"></div>
   <div class="game-hint">Click the balloons to pop them! 🎯</div>
 </div>
 
@@ -1973,9 +1979,9 @@
     const msg = document.createElement('div');
     msg.id = 'happyHoliMsg';
     msg.style.cssText = `
-      position:absolute;inset:0;display:flex;flex-direction:column;
+      position:absolute;top:0;right:0;bottom:0;left:0;display:flex;flex-direction:column;
       align-items:center;justify-content:center;z-index:20;
-      background:rgba(10,4,20,0.7);backdrop-filter:blur(6px);
+      background:rgba(10,4,20,0.7);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);
       animation:fadeInMsg 0.5s ease forwards;
     `;
     msg.innerHTML = `
@@ -2386,6 +2392,10 @@
       });
 
       phoneInput.addEventListener('keydown', function(e) {
+        // Android IME fires e.key === 'Unidentified' for all soft-keyboard presses.
+        // Blocking it would prevent ALL input on Android. Let it through —
+        // the input handler's formatPhone() strips any non-digits anyway.
+        if (e.key === 'Unidentified' || e.key === '') return;
         var allowed = ['Backspace','Delete','Tab','ArrowLeft','ArrowRight','ArrowUp','ArrowDown','Home','End'];
         if (allowed.indexOf(e.key) !== -1) return;
         if (e.ctrlKey || e.metaKey) return;
