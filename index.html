@@ -762,7 +762,7 @@
     .sr-time { font-size: 0.62rem; color: var(--green); margin-top: 4px; }
 
     .sr-submit-area { max-width: 460px; margin: 0 auto; text-align: center; }
-    .sr-email-input {
+    .sr-input {
       width: 100%; padding: 14px 20px; border-radius: 50px;
       border: 2px solid rgba(255,255,255,0.18);
       background: rgba(255,255,255,0.07);
@@ -770,9 +770,9 @@
       outline: none; margin-bottom: 14px;
       transition: border-color 0.2s;
     }
-    .sr-email-input::placeholder { color: rgba(255,255,255,0.35); }
-    .sr-email-input:focus  { border-color: var(--yellow); }
-    .sr-email-input.sr-input-error { border-color: #ff4d6d; }
+    .sr-input::placeholder { color: rgba(255,255,255,0.35); }
+    .sr-input:focus  { border-color: var(--yellow); }
+    .sr-input.sr-input-error { border-color: #ff4d6d; }
 
     .sr-submit-btn {
       width: 100%; padding: 16px; border: none; border-radius: 50px;
@@ -906,11 +906,14 @@
 
   <!-- Submit area -->
   <div class="sr-submit-area">
-    <input type="email" id="srEmail" class="sr-email-input"
-           placeholder="Enter your email to enter lucky draw"
-           autocomplete="email" inputmode="email" />
+    <input type="text" id="srName" class="sr-input"
+           placeholder="Enter your full name"
+           autocomplete="name" maxlength="100" />
+    <input type="tel" id="srPhone" class="sr-input" style="margin-top:10px;"
+           placeholder="US phone number (e.g. 502-555-1234)"
+           autocomplete="tel" inputmode="tel" />
     <button id="srSubmitBtn" class="sr-submit-btn" disabled>
-      🎯 Collect all 6 stamps to unlock
+      🎯 Collect all 17 stamps to unlock
     </button>
     <div class="sr-msg" id="srMsg" style="display:none;"></div>
   </div>
@@ -2056,7 +2059,8 @@
    *   function doGet(e) {
    *     var sheet = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();
    *     sheet.appendRow([
-   *       e.parameter.email,
+   *       e.parameter.name,
+   *       e.parameter.phone,
    *       e.parameter.submittedAt,
    *       e.parameter.stamps
    *     ]);
@@ -2096,10 +2100,10 @@
     if (_srMem !== null) return _srMem;
     try {
       var raw = localStorage.getItem(SR_KEY);
-      _srMem = raw ? JSON.parse(raw) : { stamps: {}, email: '', submitted: false };
+      _srMem = raw ? JSON.parse(raw) : { stamps: {}, name: '', phone: '', submitted: false };
       return _srMem;
     } catch(e) {
-      _srMem = { stamps: {}, email: '', submitted: false };
+      _srMem = { stamps: {}, name: '', phone: '', submitted: false };
       return _srMem;
     }
   }
@@ -2143,21 +2147,26 @@
     srUpdateBtn(data);
   }
 
+  var US_PHONE_RE = /^(\+1[\s\-.]?)?\(?\d{3}\)?[\s\-.]?\d{3}[\s\-.]?\d{4}$/;
+
   function srUpdateBtn(data) {
-    var count = Object.keys(data.stamps).length;
-    var emailInput = document.getElementById('srEmail');
-    var btn = document.getElementById('srSubmitBtn');
-    if (!btn || !emailInput) return;
-    if (!emailInput.value && data.email) emailInput.value = data.email;
+    var count      = Object.keys(data.stamps).length;
+    var nameInput  = document.getElementById('srName');
+    var phoneInput = document.getElementById('srPhone');
+    var btn        = document.getElementById('srSubmitBtn');
+    if (!btn || !nameInput || !phoneInput) return;
+    if (!nameInput.value  && data.name)  nameInput.value  = data.name;
+    if (!phoneInput.value && data.phone) phoneInput.value = data.phone;
     var allDone    = count === SR_TOTAL;
-    var validEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailInput.value.trim());
+    var validName  = nameInput.value.trim().length > 0;
+    var validPhone = US_PHONE_RE.test(phoneInput.value.trim());
     if (data.submitted) {
       btn.disabled = true; btn.textContent = '✅ Already Submitted';
       srShowMsg('success', '🎉 You are already in the lucky draw! Good luck!'); return;
     }
-    btn.disabled = !(allDone && validEmail);
+    btn.disabled = !(allDone && validName && validPhone);
     btn.textContent = allDone
-      ? (validEmail ? '🎉 Submit & Enter Lucky Draw' : '✉️ Enter email to submit')
+      ? (validName && validPhone ? '🎉 Submit & Enter Lucky Draw' : '👤 Enter name & phone to submit')
       : '🎯 Collect all ' + SR_TOTAL + ' stamps to unlock';
   }
 
@@ -2179,41 +2188,50 @@
   }
 
   function srReset() {
-    if (!confirm('This will clear all your stamps and email. Continue?')) return;
-    _srMem = null;                       // clear in-memory cache first
-    localStorage.removeItem(SR_KEY);     // then clear persistent storage
-    var emailInput = document.getElementById('srEmail');
-    if (emailInput) emailInput.value = '';
+    if (!confirm('This will clear all your stamps, name, and phone number. Continue?')) return;
+    _srMem = null;
+    localStorage.removeItem(SR_KEY);
+    var nameInput  = document.getElementById('srName');
+    var phoneInput = document.getElementById('srPhone');
+    if (nameInput)  nameInput.value  = '';
+    if (phoneInput) phoneInput.value = '';
     var msgEl = document.getElementById('srMsg');
     if (msgEl) { msgEl.style.display = 'none'; }
-    srRender();                          // srGetData() now reads fresh empty state
+    srRender();
   }
 
   async function srSubmit() {
-    var btn = document.getElementById('srSubmitBtn');
-    var emailInput = document.getElementById('srEmail');
-    if (!btn || !emailInput) return; // guard against missing DOM elements
+    var btn        = document.getElementById('srSubmitBtn');
+    var nameInput  = document.getElementById('srName');
+    var phoneInput = document.getElementById('srPhone');
+    if (!btn || !nameInput || !phoneInput) return;
     try {
-      var data = srGetData();
-      var email = emailInput.value.trim();
+      var data  = srGetData();
+      var name  = nameInput.value.trim();
+      var phone = phoneInput.value.trim();
       if (Object.keys(data.stamps).length < SR_TOTAL) {
         srShowMsg('error', 'Please collect all ' + SR_TOTAL + ' stamps first!'); return;
       }
-      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-        emailInput.classList.add('sr-input-error');
-        srShowMsg('error', 'Please enter a valid email address.'); return;
+      if (!name) {
+        nameInput.classList.add('sr-input-error');
+        srShowMsg('error', 'Please enter your full name.'); return;
       }
-      emailInput.classList.remove('sr-input-error');
-      data.email = email; srSave(data);
+      nameInput.classList.remove('sr-input-error');
+      if (!US_PHONE_RE.test(phone)) {
+        phoneInput.classList.add('sr-input-error');
+        srShowMsg('error', 'Please enter a valid US phone number (e.g. 502-555-1234).'); return;
+      }
+      phoneInput.classList.remove('sr-input-error');
+      data.name = name; data.phone = phone; srSave(data);
       btn.disabled = true; btn.textContent = '⏳ Submitting…';
       var stampNames = VENDORS.map(function(v) { return v.name; }).join(', ');
       var submitUrl = SR_SUBMIT_URL
-        + '?email='       + encodeURIComponent(email)
+        + '?name='        + encodeURIComponent(name)
+        + '&phone='       + encodeURIComponent(phone)
         + '&submittedAt=' + encodeURIComponent(new Date().toISOString())
         + '&stamps='      + encodeURIComponent(stampNames);
       try {
         if (SR_SUBMIT_URL === 'YOUR_GOOGLE_APPS_SCRIPT_URL_HERE') throw new Error('not-configured');
-        // 10-second timeout — bad WiFi at events is common
         var timeoutHandle;
         var timeout = new Promise(function(_, reject) {
           timeoutHandle = setTimeout(function() { reject(new Error('timeout')); }, 10000);
@@ -2222,10 +2240,10 @@
           fetch(submitUrl, { method: 'GET', mode: 'no-cors' }),
           timeout
         ]);
-        clearTimeout(timeoutHandle); // prevent the timeout rejecting after success
+        clearTimeout(timeoutHandle);
         data.submitted = true; srSave(data);
         btn.textContent = '✅ Submitted!';
-        srShowMsg('success', '🎉 You are entered in the lucky draw! We will contact you at ' + email + ' if you win. Enjoy the Holi Mela!');
+        srShowMsg('success', '🎉 You are entered in the lucky draw! We will call ' + name + ' at ' + phone + ' if you win. Enjoy the Holi Mela!');
       } catch(e) {
         btn.disabled = false; btn.textContent = '🎉 Submit & Enter Lucky Draw';
         var msg = e.message === 'timeout'
@@ -2234,7 +2252,6 @@
         srShowMsg('fallback', msg);
       }
     } catch(outerErr) {
-      // catch any unexpected JS error so the button never stays stuck
       if (btn) { btn.disabled = false; btn.textContent = '🎉 Submit & Enter Lucky Draw'; }
       srShowMsg('fallback', '⚠️ Something went wrong. Please walk to the Hindi Paathshala counter for manual entry.');
     }
@@ -2291,15 +2308,26 @@
       }
     }
     srRender();
-    var emailInput = document.getElementById('srEmail');
-    if (emailInput) {
-      emailInput.addEventListener('input', function() {
-        emailInput.classList.remove('sr-input-error');
+    var nameInput  = document.getElementById('srName');
+    var phoneInput = document.getElementById('srPhone');
+    if (nameInput) {
+      nameInput.addEventListener('input', function() {
+        nameInput.classList.remove('sr-input-error');
         srUpdateBtn(srGetData());
       });
-      emailInput.addEventListener('blur', function() {
+      nameInput.addEventListener('blur', function() {
         var d = srGetData();
-        if (emailInput.value.trim()) { d.email = emailInput.value.trim(); srSave(d); }
+        if (nameInput.value.trim()) { d.name = nameInput.value.trim(); srSave(d); }
+      });
+    }
+    if (phoneInput) {
+      phoneInput.addEventListener('input', function() {
+        phoneInput.classList.remove('sr-input-error');
+        srUpdateBtn(srGetData());
+      });
+      phoneInput.addEventListener('blur', function() {
+        var d = srGetData();
+        if (phoneInput.value.trim()) { d.phone = phoneInput.value.trim(); srSave(d); }
       });
     }
     var submitBtn = document.getElementById('srSubmitBtn');
