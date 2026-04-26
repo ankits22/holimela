@@ -172,3 +172,8 @@ Participants -
     - Navya
     - Sara
     - Adhya
+
+
+
+
+Update @index.html "stamp rally" section to collect Name and Phone number, instead of email address. Update the function that sends the data to google spreadsheet so that it saves Name, PhoneNumber instead of email address and let me know what should be the column names in the google spreadsheet. apply regex validation to accept US phone numbers only in the phone number text box. apply Maximum 100 characters for the name text box.

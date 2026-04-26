@@ -789,6 +789,13 @@
     .sr-submit-btn:disabled {
       background: rgba(255,255,255,0.08); color: rgba(255,255,255,0.3); cursor: not-allowed;
     }
+    .sr-reset-btn {
+      background: transparent; border: 1px solid rgba(255,255,255,0.18);
+      color: rgba(255,255,255,0.4); padding: 8px 20px; border-radius: 50px;
+      font-size: 0.78rem; cursor: pointer; font-family: 'Poppins', sans-serif;
+      margin-top: 12px; transition: border-color 0.2s, color 0.2s;
+    }
+    .sr-reset-btn:hover { border-color: rgba(255,77,109,0.5); color: #ff4d6d; }
 
     .sr-msg {
       margin-top: 14px; padding: 12px 18px; border-radius: 12px; font-size: 0.88rem; font-weight: 500;
@@ -911,11 +918,14 @@
            autocomplete="name" maxlength="100" />
     <input type="tel" id="srPhone" class="sr-input" style="margin-top:10px;"
            placeholder="US phone number (e.g. 502-555-1234)"
-           autocomplete="tel" inputmode="tel" />
+           autocomplete="tel" inputmode="numeric" maxlength="14" />
+    <div id="srPhoneHint" style="font-size:0.75rem;margin-top:5px;min-height:1.2em;text-align:center;display:none;"></div>
     <button id="srSubmitBtn" class="sr-submit-btn" disabled>
       🎯 Collect all 17 stamps to unlock
     </button>
     <div class="sr-msg" id="srMsg" style="display:none;"></div>
+    <br />
+    <button class="sr-reset-btn" onclick="srReset()">🗑 Reset stamps, name &amp; phone</button>
   </div>
 
 </section>
@@ -2147,7 +2157,36 @@
     srUpdateBtn(data);
   }
 
-  var US_PHONE_RE = /^(\+1[\s\-.]?)?\(?\d{3}\)?[\s\-.]?\d{3}[\s\-.]?\d{4}$/;
+  var US_PHONE_RE = /^\(\d{3}\) \d{3}-\d{4}$/;
+
+  function formatPhone(raw) {
+    var digits = raw.replace(/\D/g, '');
+    // strip leading country code "1" if user pasted +1xxxxxxxxxx (11 digits)
+    if (digits.length === 11 && digits.charAt(0) === '1') digits = digits.substring(1);
+    digits = digits.substring(0, 10);
+    if (digits.length === 0) return '';
+    if (digits.length <= 3)  return '(' + digits;
+    if (digits.length <= 6)  return '(' + digits.substring(0,3) + ') ' + digits.substring(3);
+    return '(' + digits.substring(0,3) + ') ' + digits.substring(3,6) + '-' + digits.substring(6);
+  }
+
+  function updatePhoneHint() {
+    var phoneInput = document.getElementById('srPhone');
+    var phoneHint  = document.getElementById('srPhoneHint');
+    if (!phoneInput || !phoneHint) return;
+    var digits = phoneInput.value.replace(/\D/g, '');
+    if (digits.length === 0) {
+      phoneHint.style.display = 'none';
+    } else if (digits.length < 10) {
+      phoneHint.style.display = 'block';
+      phoneHint.style.color = '#ff4d6d';
+      phoneHint.textContent = '⚠ US phone numbers must have 10 digits (' + digits.length + '/10 entered)';
+    } else {
+      phoneHint.style.display = 'block';
+      phoneHint.style.color = '#06d6a0';
+      phoneHint.textContent = '✓ Valid US phone number';
+    }
+  }
 
   function srUpdateBtn(data) {
     var count      = Object.keys(data.stamps).length;
@@ -2168,6 +2207,7 @@
     btn.textContent = allDone
       ? (validName && validPhone ? '🎉 Submit & Enter Lucky Draw' : '👤 Enter name & phone to submit')
       : '🎯 Collect all ' + SR_TOTAL + ' stamps to unlock';
+    updatePhoneHint();
   }
 
   function srAddStamp(vendorId) {
@@ -2195,6 +2235,7 @@
     var phoneInput = document.getElementById('srPhone');
     if (nameInput)  nameInput.value  = '';
     if (phoneInput) phoneInput.value = '';
+    updatePhoneHint();
     var msgEl = document.getElementById('srMsg');
     if (msgEl) { msgEl.style.display = 'none'; }
     srRender();
@@ -2322,9 +2363,29 @@
     }
     if (phoneInput) {
       phoneInput.addEventListener('input', function() {
+        // count digits before cursor to restore cursor position correctly after reformat
+        var rawBefore = phoneInput.value.substring(0, phoneInput.selectionStart);
+        var digitsBefore = rawBefore.replace(/\D/g, '').length;
+        phoneInput.value = formatPhone(phoneInput.value);
+        // find position of the digitsBefore-th digit in formatted string
+        var pos = 0, count = 0;
+        while (pos < phoneInput.value.length && count < digitsBefore) {
+          if (/\d/.test(phoneInput.value.charAt(pos))) count++;
+          pos++;
+        }
+        phoneInput.setSelectionRange(pos, pos);
         phoneInput.classList.remove('sr-input-error');
+        updatePhoneHint();
         srUpdateBtn(srGetData());
       });
+
+      phoneInput.addEventListener('keydown', function(e) {
+        var allowed = ['Backspace','Delete','Tab','ArrowLeft','ArrowRight','ArrowUp','ArrowDown','Home','End'];
+        if (allowed.indexOf(e.key) !== -1) return;
+        if (e.ctrlKey || e.metaKey) return;
+        if (!/^\d$/.test(e.key)) e.preventDefault();
+      });
+
       phoneInput.addEventListener('blur', function() {
         var d = srGetData();
         if (phoneInput.value.trim()) { d.phone = phoneInput.value.trim(); srSave(d); }
