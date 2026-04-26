@@ -2233,8 +2233,8 @@
     localStorage.removeItem(SR_KEY);
     var nameInput  = document.getElementById('srName');
     var phoneInput = document.getElementById('srPhone');
-    if (nameInput)  nameInput.value  = '';
-    if (phoneInput) phoneInput.value = '';
+    if (nameInput)  { nameInput.value  = ''; nameInput.classList.remove('sr-input-error'); }
+    if (phoneInput) { phoneInput.value = ''; phoneInput.classList.remove('sr-input-error'); }
     updatePhoneHint();
     var msgEl = document.getElementById('srMsg');
     if (msgEl) { msgEl.style.display = 'none'; }
@@ -2354,11 +2354,12 @@
     if (nameInput) {
       nameInput.addEventListener('input', function() {
         nameInput.classList.remove('sr-input-error');
-        srUpdateBtn(srGetData());
-      });
-      nameInput.addEventListener('blur', function() {
         var d = srGetData();
-        if (nameInput.value.trim()) { d.name = nameInput.value.trim(); srSave(d); }
+        // only save non-whitespace content; whitespace-only saves as '' so it is
+        // not restored on reload (which would make the field look filled but fail validation)
+        d.name = nameInput.value.trim() ? nameInput.value : '';
+        srSave(d);
+        srUpdateBtn(srGetData());
       });
     }
     if (phoneInput) {
@@ -2375,6 +2376,11 @@
         }
         phoneInput.setSelectionRange(pos, pos);
         phoneInput.classList.remove('sr-input-error');
+        // always sync storage with what's in the box (including empty/partial)
+        // so srUpdateBtn never restores a stale value mid-session
+        var d = srGetData();
+        d.phone = phoneInput.value;
+        srSave(d);
         updatePhoneHint();
         srUpdateBtn(srGetData());
       });
@@ -2384,11 +2390,6 @@
         if (allowed.indexOf(e.key) !== -1) return;
         if (e.ctrlKey || e.metaKey) return;
         if (!/^\d$/.test(e.key)) e.preventDefault();
-      });
-
-      phoneInput.addEventListener('blur', function() {
-        var d = srGetData();
-        if (phoneInput.value.trim()) { d.phone = phoneInput.value.trim(); srSave(d); }
       });
     }
     var submitBtn = document.getElementById('srSubmitBtn');
