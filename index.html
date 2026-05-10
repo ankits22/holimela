@@ -385,6 +385,17 @@
     }
     .gallery-item:hover img { transform: scale(1.08); }
     .gallery-item:hover::after { opacity: 1; }
+    .gallery-year-label {
+      text-align: center; margin-bottom: 24px;
+    }
+    .gallery-year-label span {
+      display: inline-block;
+      background: linear-gradient(135deg, rgba(233,30,140,0.2), rgba(255,107,53,0.15));
+      border: 1px solid rgba(233,30,140,0.4);
+      color: #fff; font-size: 1.1rem; font-weight: 700;
+      padding: 8px 28px; border-radius: 50px;
+      letter-spacing: 0.02em;
+    }
 
     /* ─── TEAM ───────────────────────────────────────────────────────── */
     #team { background: linear-gradient(135deg, #fff9f0, #f0e6ff); }
@@ -946,15 +957,11 @@
     <li><a href="#venue-map">Venue Map</a></li>
     <li><a href="#blood-drive">Blood Drive</a></li>
     <li><a href="#contact">Contact</a></li>
-    <li><a href="https://events.sulekha.com/holi-mela-2026_event-in_louisville-ky_398906" target="_blank" rel="noopener" class="btn-ticket-nav">🎟 Buy Tickets</a></li>
+    <li><span class="btn-ticket-nav" style="opacity:0.45;cursor:not-allowed;pointer-events:none;filter:grayscale(0.5);">🎟 Event Over</span></li>
   </ul>
 </nav>
 
 <!-- Stamp Rally floating corner badge -->
-<a href="#stamp-rally" class="sr-corner-badge" aria-label="Collect stamps and win prizes">
-  <span class="cb-icon">🎯</span>
-  <span>Collect Stamps &amp; Win!</span>
-</a>
 
 <!-- ══════════ HERO ══════════ -->
 <section id="hero">
@@ -972,7 +979,7 @@
       🎪 We also have <strong>carnival games for kids</strong> — where little ones can play and win exciting prizes!
     </p>
     <div class="hero-btns">
-      <a href="https://events.sulekha.com/holi-mela-2026_event-in_louisville-ky_398906" target="_blank" rel="noopener" class="btn-primary">🎟 Buy Tickets Now</a>
+      <span class="btn-primary" style="opacity:0.45;cursor:not-allowed;pointer-events:none;filter:grayscale(0.5);">🎟 Ticket Sales Closed</span>
       <a href="#about" class="btn-secondary">Learn More</a>
       <a href="#pathshala" class="btn-secondary">🏫 Hindi Paathshaala</a>
     </div>
@@ -986,6 +993,23 @@
     <h2>🎯 Stamp <span class="accent">Rally</span></h2>
     <p>Visit every vendor counter, scan their QR code &amp; collect all 17 stamps to enter the lucky draw!</p>
     <div class="divider"></div>
+  </div>
+
+  <!-- Winners announcement -->
+  <div style="max-width:620px;margin:0 auto 36px;background:linear-gradient(135deg,rgba(255,210,63,0.12),rgba(233,30,140,0.1));border:2px solid rgba(255,210,63,0.5);border-radius:20px;padding:28px 32px;text-align:center;">
+    <div style="font-size:2rem;margin-bottom:8px;">🏆</div>
+    <div style="font-size:1rem;font-weight:700;color:var(--yellow);letter-spacing:0.04em;text-transform:uppercase;margin-bottom:14px;">Stamp Rally Winners</div>
+    <div style="display:flex;gap:16px;justify-content:center;flex-wrap:wrap;margin-bottom:16px;">
+      <div style="background:rgba(255,255,255,0.08);border:1px solid rgba(255,210,63,0.35);border-radius:14px;padding:14px 24px;">
+        <div style="font-size:1.3rem;margin-bottom:4px;">🥇</div>
+        <div style="font-weight:700;color:#fff;font-size:1rem;">Meenu Adlakha</div>
+      </div>
+      <div style="background:rgba(255,255,255,0.08);border:1px solid rgba(255,210,63,0.35);border-radius:14px;padding:14px 24px;">
+        <div style="font-size:1.3rem;margin-bottom:4px;">🥇</div>
+        <div style="font-weight:700;color:#fff;font-size:1rem;">Trevor Gosa</div>
+      </div>
+    </div>
+    <div style="color:rgba(255,255,255,0.65);font-size:0.85rem;line-height:1.6;">Congratulations! Winners will be reached out on the phone number provided during registration.</div>
   </div>
 
   <!-- Banner shown after a QR scan -->
@@ -1684,35 +1708,111 @@
     <p>Relive the colors, the joy, and the memories</p>
     <div class="divider"></div>
   </div>
-  <div class="gallery-grid" id="galleryGrid">
-    <div class="gallery-item" onclick="openLightbox(0)">
-      <img src="images/495556063_1263135979145174_6679334376900509865_n.jpg" alt="Holi Mela photo 1" loading="lazy" />
+
+  <!-- Holi Mela 2026 -->
+  <div class="gallery-year-label">
+    <span>🎨 Holi Mela 2026</span>
+  </div>
+  <div class="gallery-grid">
+    <div class="gallery-item" onclick="openLightbox('2026',0)">
+      <img src="images2026/PHOTO-2026-04-26-12-28-01.jpg" alt="Holi Mela 2026 photo 1" loading="lazy" />
     </div>
-    <div class="gallery-item" onclick="openLightbox(1)">
-      <img src="images/495094502_1263135965811842_5995826002376013037_n.jpg" alt="Holi Mela photo 2" loading="lazy" />
+    <div class="gallery-item" onclick="openLightbox('2026',1)">
+      <img src="images2026/PHOTO-2026-04-26-12-28-02.jpg" alt="Holi Mela 2026 photo 2" loading="lazy" />
     </div>
-    <div class="gallery-item" onclick="openLightbox(2)">
-      <img src="images/495185683_1263136002478505_8487763320488421695_n.jpg" alt="Holi Mela photo 3" loading="lazy" />
+    <div class="gallery-item" onclick="openLightbox('2026',2)">
+      <img src="images2026/PHOTO-2026-04-26-12-28-03.jpg" alt="Holi Mela 2026 photo 3" loading="lazy" />
     </div>
-    <div class="gallery-item" onclick="openLightbox(3)">
-      <img src="images/495369708_1263134275812011_8679568235114164367_n.jpg" alt="Holi Mela photo 4" loading="lazy" />
+    <div class="gallery-item" onclick="openLightbox('2026',3)">
+      <img src="images2026/PHOTO-2026-04-26-12-28-04.jpg" alt="Holi Mela 2026 photo 4" loading="lazy" />
     </div>
-    <div class="gallery-item" onclick="openLightbox(4)">
-      <img src="images/495050261_1263133785812060_8162158490061643910_n.jpg" alt="Holi Mela photo 5" loading="lazy" />
+    <div class="gallery-item" onclick="openLightbox('2026',4)">
+      <img src="images2026/PHOTO-2026-04-26-12-28-01 7.jpg" alt="Holi Mela 2026 photo 5" loading="lazy" />
     </div>
-    <div class="gallery-item" onclick="openLightbox(5)">
-      <img src="images/495844497_1263134132478692_8621574998209585110_n.jpg" alt="Holi Mela photo 6" loading="lazy" />
+    <div class="gallery-item" onclick="openLightbox('2026',5)">
+      <img src="images2026/PHOTO-2026-04-26-12-28-03 4.jpg" alt="Holi Mela 2026 photo 6" loading="lazy" />
     </div>
-    <div class="gallery-item" onclick="openLightbox(6)">
-      <img src="images/496001052_1263137262478379_3369362297725288395_n.jpg" alt="Holi Mela photo 7" loading="lazy" />
+    <div class="gallery-item" onclick="openLightbox('2026',6)">
+      <img src="images2026/PHOTO-2026-04-26-12-28-01 6.jpg" alt="Holi Mela 2026 photo 7" loading="lazy" />
     </div>
-    <div class="gallery-item" onclick="openLightbox(7)">
-      <img src="images/644238928_1532624155529687_5899792696644372942_n.jpg" alt="Holi Mela photo 8" loading="lazy" />
+    <div class="gallery-item" onclick="openLightbox('2026',7)">
+      <img src="images2026/PHOTO-2026-04-26-12-28-01 4.jpg" alt="Holi Mela 2026 photo 8" loading="lazy" />
     </div>
-    <div class="gallery-item" onclick="openLightbox(8)">
-      <img src="images/655916257_1549814203810682_3891959051845644855_n.jpg" alt="Holi Mela photo 9" loading="lazy" />
+    <div class="gallery-item" onclick="openLightbox('2026',8)">
+      <img src="images2026/PHOTO-2026-04-26-12-28-01 5.jpg" alt="Holi Mela 2026 photo 9" loading="lazy" />
+    </div>
+    <div class="gallery-item" onclick="openLightbox('2026',9)">
+      <img src="images2026/PHOTO-2026-04-26-12-28-03 3.jpg" alt="Holi Mela 2026 photo 10" loading="lazy" />
+    </div>
+    <div class="gallery-item" onclick="openLightbox('2026',10)">
+      <img src="images2026/PHOTO-2026-04-26-12-28-03 2.jpg" alt="Holi Mela 2026 photo 11" loading="lazy" />
+    </div>
+    <div class="gallery-item" onclick="openLightbox('2026',11)">
+      <img src="images2026/PHOTO-2026-04-26-12-28-01 2.jpg" alt="Holi Mela 2026 photo 12" loading="lazy" />
+    </div>
+    <div class="gallery-item" onclick="openLightbox('2026',12)">
+      <img src="images2026/PHOTO-2026-04-26-12-28-01 3.jpg" alt="Holi Mela 2026 photo 13" loading="lazy" />
+    </div>
+    <div class="gallery-item" onclick="openLightbox('2026',13)">
+      <img src="images2026/PHOTO-2026-04-26-12-28-04 3.jpg" alt="Holi Mela 2026 photo 14" loading="lazy" />
+    </div>
+    <div class="gallery-item" onclick="openLightbox('2026',14)">
+      <img src="images2026/PHOTO-2026-04-26-12-28-02 4.jpg" alt="Holi Mela 2026 photo 15" loading="lazy" />
+    </div>
+    <div class="gallery-item" onclick="openLightbox('2026',15)">
+      <img src="images2026/PHOTO-2026-04-26-12-28-04 2.jpg" alt="Holi Mela 2026 photo 16" loading="lazy" />
+    </div>
+    <div class="gallery-item" onclick="openLightbox('2026',16)">
+      <img src="images2026/PHOTO-2026-04-26-12-28-04 5.jpg" alt="Holi Mela 2026 photo 17" loading="lazy" />
+    </div>
+    <div class="gallery-item" onclick="openLightbox('2026',17)">
+      <img src="images2026/PHOTO-2026-04-26-12-28-02 3.jpg" alt="Holi Mela 2026 photo 18" loading="lazy" />
+    </div>
+    <div class="gallery-item" onclick="openLightbox('2026',18)">
+      <img src="images2026/PHOTO-2026-04-26-12-28-02 2.jpg" alt="Holi Mela 2026 photo 19" loading="lazy" />
+    </div>
+    <div class="gallery-item" onclick="openLightbox('2026',19)">
+      <img src="images2026/PHOTO-2026-04-26-12-28-04 4.jpg" alt="Holi Mela 2026 photo 20" loading="lazy" />
+    </div>
+    <div class="gallery-item" onclick="openLightbox('2026',20)">
+      <img src="images2026/PHOTO-2026-04-27-17-57-15.jpg" alt="Holi Mela 2026 photo 21" loading="lazy" />
     </div>
   </div>
+
+  <!-- Holi Mela 2025 -->
+  <div class="gallery-year-label" style="margin-top:48px;">
+    <span>📸 Holi Mela 2025</span>
+  </div>
+  <div class="gallery-grid">
+    <div class="gallery-item" onclick="openLightbox('2025',0)">
+      <img src="images/495556063_1263135979145174_6679334376900509865_n.jpg" alt="Holi Mela 2025 photo 1" loading="lazy" />
+    </div>
+    <div class="gallery-item" onclick="openLightbox('2025',1)">
+      <img src="images/495094502_1263135965811842_5995826002376013037_n.jpg" alt="Holi Mela 2025 photo 2" loading="lazy" />
+    </div>
+    <div class="gallery-item" onclick="openLightbox('2025',2)">
+      <img src="images/495185683_1263136002478505_8487763320488421695_n.jpg" alt="Holi Mela 2025 photo 3" loading="lazy" />
+    </div>
+    <div class="gallery-item" onclick="openLightbox('2025',3)">
+      <img src="images/495369708_1263134275812011_8679568235114164367_n.jpg" alt="Holi Mela 2025 photo 4" loading="lazy" />
+    </div>
+    <div class="gallery-item" onclick="openLightbox('2025',4)">
+      <img src="images/495050261_1263133785812060_8162158490061643910_n.jpg" alt="Holi Mela 2025 photo 5" loading="lazy" />
+    </div>
+    <div class="gallery-item" onclick="openLightbox('2025',5)">
+      <img src="images/495844497_1263134132478692_8621574998209585110_n.jpg" alt="Holi Mela 2025 photo 6" loading="lazy" />
+    </div>
+    <div class="gallery-item" onclick="openLightbox('2025',6)">
+      <img src="images/496001052_1263137262478379_3369362297725288395_n.jpg" alt="Holi Mela 2025 photo 7" loading="lazy" />
+    </div>
+    <div class="gallery-item" onclick="openLightbox('2025',7)">
+      <img src="images/644238928_1532624155529687_5899792696644372942_n.jpg" alt="Holi Mela 2025 photo 8" loading="lazy" />
+    </div>
+    <div class="gallery-item" onclick="openLightbox('2025',8)">
+      <img src="images/655916257_1549814203810682_3891959051845644855_n.jpg" alt="Holi Mela 2025 photo 9" loading="lazy" />
+    </div>
+  </div>
+
   <p style="text-align:center; margin-top:24px; color:#aaa; font-size:0.85rem;">
     More photos on <a href="https://FB.com/HindiLouisville" target="_blank" rel="noopener" style="color:var(--pink); font-weight:600;">Facebook @HindiLouisville</a>
   </p>
@@ -1827,9 +1927,9 @@
         <li>Carnival games &amp; cultural workshops</li>
         <li>Community marketplace &amp; more</li>
       </ul>
-      <a href="https://events.sulekha.com/holi-mela-2026_event-in_louisville-ky_398906" target="_blank" rel="noopener" class="btn-primary" style="display:inline-block;">
-        🎟 Buy Tickets on Sulekha
-      </a>
+      <span class="btn-primary" style="display:inline-block;opacity:0.45;cursor:not-allowed;pointer-events:none;filter:grayscale(0.5);">
+        🎟 Ticket Sales Closed
+      </span>
       <p style="margin-top:16px; color:#888; font-size:0.78rem;">
         Note: All attendees including sponsors &amp; volunteers must purchase a ticket.
       </p>
@@ -2003,8 +2103,7 @@
   <p>Louisville Holi Mela 2026 &nbsp;|&nbsp; Organized by <a href="#pathshala">Louisville Hindi Paathshaala</a></p>
   <p style="margin-top:8px;">📍 4213 Accomack Dr, Louisville, KY 40241 &nbsp;|&nbsp; April 26, 2026, 12–6 PM ET</p>
   <p style="margin-top:12px;">
-    <a href="https://FB.com/HindiLouisville" target="_blank" rel="noopener">Facebook</a> &nbsp;|&nbsp;
-    <a href="https://events.sulekha.com/holi-mela-2026_event-in_louisville-ky_398906" target="_blank" rel="noopener">Buy Tickets</a>
+    <a href="https://FB.com/HindiLouisville" target="_blank" rel="noopener">Facebook</a>
   </p>
 </footer>
 
@@ -2046,21 +2145,48 @@
   });
 
   /* ── Lightbox ── */
-  const images = [
-    'images/495556063_1263135979145174_6679334376900509865_n.jpg',
-    'images/495094502_1263135965811842_5995826002376013037_n.jpg',
-    'images/495185683_1263136002478505_8487763320488421695_n.jpg',
-    'images/495369708_1263134275812011_8679568235114164367_n.jpg',
-    'images/495050261_1263133785812060_8162158490061643910_n.jpg',
-    'images/495844497_1263134132478692_8621574998209585110_n.jpg',
-    'images/496001052_1263137262478379_3369362297725288395_n.jpg',
-    'images/644238928_1532624155529687_5899792696644372942_n.jpg',
-    'images/655916257_1549814203810682_3891959051845644855_n.jpg',
-  ];
+  const galleryImages = {
+    '2026': [
+      'images2026/PHOTO-2026-04-26-12-28-01.jpg',
+      'images2026/PHOTO-2026-04-26-12-28-02.jpg',
+      'images2026/PHOTO-2026-04-26-12-28-03.jpg',
+      'images2026/PHOTO-2026-04-26-12-28-04.jpg',
+      'images2026/PHOTO-2026-04-26-12-28-01 7.jpg',
+      'images2026/PHOTO-2026-04-26-12-28-03 4.jpg',
+      'images2026/PHOTO-2026-04-26-12-28-01 6.jpg',
+      'images2026/PHOTO-2026-04-26-12-28-01 4.jpg',
+      'images2026/PHOTO-2026-04-26-12-28-01 5.jpg',
+      'images2026/PHOTO-2026-04-26-12-28-03 3.jpg',
+      'images2026/PHOTO-2026-04-26-12-28-03 2.jpg',
+      'images2026/PHOTO-2026-04-26-12-28-01 2.jpg',
+      'images2026/PHOTO-2026-04-26-12-28-01 3.jpg',
+      'images2026/PHOTO-2026-04-26-12-28-04 3.jpg',
+      'images2026/PHOTO-2026-04-26-12-28-02 4.jpg',
+      'images2026/PHOTO-2026-04-26-12-28-04 2.jpg',
+      'images2026/PHOTO-2026-04-26-12-28-04 5.jpg',
+      'images2026/PHOTO-2026-04-26-12-28-02 3.jpg',
+      'images2026/PHOTO-2026-04-26-12-28-02 2.jpg',
+      'images2026/PHOTO-2026-04-26-12-28-04 4.jpg',
+      'images2026/PHOTO-2026-04-27-17-57-15.jpg',
+    ],
+    '2025': [
+      'images/495556063_1263135979145174_6679334376900509865_n.jpg',
+      'images/495094502_1263135965811842_5995826002376013037_n.jpg',
+      'images/495185683_1263136002478505_8487763320488421695_n.jpg',
+      'images/495369708_1263134275812011_8679568235114164367_n.jpg',
+      'images/495050261_1263133785812060_8162158490061643910_n.jpg',
+      'images/495844497_1263134132478692_8621574998209585110_n.jpg',
+      'images/496001052_1263137262478379_3369362297725288395_n.jpg',
+      'images/644238928_1532624155529687_5899792696644372942_n.jpg',
+      'images/655916257_1549814203810682_3891959051845644855_n.jpg',
+    ],
+  };
   let currentLb = 0;
-  function openLightbox(idx) {
+  let currentGallery = '2026';
+  function openLightbox(gallery, idx) {
+    currentGallery = gallery;
     currentLb = idx;
-    document.getElementById('lbImg').src = images[idx];
+    document.getElementById('lbImg').src = galleryImages[gallery][idx];
     document.getElementById('lightbox').classList.add('open');
     document.body.style.overflow = 'hidden';
   }
@@ -2069,8 +2195,9 @@
     document.body.style.overflow = '';
   }
   function changeLb(dir) {
-    currentLb = (currentLb + dir + images.length) % images.length;
-    document.getElementById('lbImg').src = images[currentLb];
+    const imgs = galleryImages[currentGallery];
+    currentLb = (currentLb + dir + imgs.length) % imgs.length;
+    document.getElementById('lbImg').src = imgs[currentLb];
   }
   document.getElementById('lightbox').addEventListener('click', function(e) {
     if (e.target === this) closeLightbox();
